@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/08 09:24:42 by jiandre           #+#    #+#             */
-/*   Updated: 2020/05/24 00:41:33 by jiandre          ###   ########.fr       */
+/*   Created: 2020/07/25 00:34:31 by handrow           #+#    #+#             */
+/*   Updated: 2020/11/21 15:11:22 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int			ft_lstsize(t_list *lst)
-{
-	int		size;
+int			ft_printf(int fd, const char *str, ...);
 
-	size = 0;
-	while (lst)
-	{
-		size++;
-		lst = lst->next;
-	}
-	return (size);
-}
+#endif

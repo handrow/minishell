@@ -6,30 +6,33 @@
 /*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 06:50:06 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/21 09:58:45 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/21 15:54:38 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 #include "builtins.h"
 #include <sys/wait.h>
+#include "ft_printf.h"
 
 void	select_forky(struct s_forky_info *info)
 {
 	const bool	is_blt = blt_get_func(info->argv[0]) != NULL;
 
 	if (!is_blt)
-		info->forky_func = NULL; // binary
+		info->forky_func = forky_binary;
 	else if (info->in != NULL || info->ou != NULL /* || RDR */)
-		info->forky_func = NULL; // builtin pipe
+		info->forky_func = forky_builtin_rd;
 	else
-		info->forky_func = NULL; // builtin		
+		info->forky_func = forky_builtin;
 }
 
 void	fill_pipes(struct s_forky_info *info, t_node *cmd)
 {
 	struct s_instruction	*instr;
 
+	info->in = NULL;
+	info->ou = NULL;
 	if (cmd->prev != NULL)
 	{
 		instr = cmd->prev->content;
@@ -54,8 +57,12 @@ int		get_last_ec_n_wait(pid_t last_pid)
 		exit_code = WEXITSTATUS(stat_loc);
 	else if (WIFSIGNALED(stat_loc))
 		exit_code = EXIT_STATUS_SIG_BASE + WTERMSIG(stat_loc); // We can notify about killing
-	else 
-		exit_code = 222; // TODO
-	wait(&stat_loc);
+	else
+	{
+		ft_printf(STDERR_FILENO, "minishell: fatal error: please let me pass it!\n");
+		exit(EXIT_STATUS_ERROR);
+	}
+	while (wait(&stat_loc) > 0)
+		continue ;
 	return (exit_code);
 }

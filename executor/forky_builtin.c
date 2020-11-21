@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   forky_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/08 09:04:57 by jiandre           #+#    #+#             */
-/*   Updated: 2020/05/24 00:41:14 by jiandre          ###   ########.fr       */
+/*   Created: 2020/11/21 11:32:34 by handrow           #+#    #+#             */
+/*   Updated: 2020/11/21 11:35:51 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "forky.h"
+#include "builtins.h"
 
-void		ft_lstadd_front(t_list **lst, t_list *new)
+pid_t		forky_builtin(struct s_forky_info *info, t_env_containter *env)
 {
-	new->next = *lst;
-	*lst = new;
+	info->fork_flag = false;
+	info->exit_code = blt_get_func(info->argv[0])(info->argv, env);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 16:08:57 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/13 17:38:28 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/21 10:19:32 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # include "dlst.h"
 
-struct		s_env_var
+struct				s_env_var
 {
-	char	*key;
-	char	*value;	
+	char			*key;
+	char			*value;	
 };
 
-typedef t_node *t_env_containter;
+typedef t_node		*t_env_containter;
 
 /*
 ** Create env_containter from null-terminated string array
@@ -30,7 +30,7 @@ typedef t_node *t_env_containter;
 **
 ** Return: NULL if allocation failes
 */
-void		*env_import_from_arr(t_env_containter *env, const char **arr);
+void				*env_import_from_arr(t_env_containter *env, const char **arr);
 
 /*
 ** Create null-terminated string array from env_container
@@ -39,7 +39,7 @@ void		*env_import_from_arr(t_env_containter *env, const char **arr);
 **
 ** Return: NULL if allocation failes
 */
-char		**env_export_to_arr(t_env_containter *env);
+char				**env_export_to_arr(t_env_containter *env);
 
 /*
 ** Return value of variable with such @key
@@ -47,24 +47,24 @@ char		**env_export_to_arr(t_env_containter *env);
 **
 ** Return: NULL if no such variable at the container
 */
-const char	*env_get(t_env_containter *env, const char *key);
+const char			*env_get(t_env_containter *env, const char *key);
 
 /*
 ** Set varibale's value with such @key to @val
 **
 ** Return: NULL if allocation failed
 */
-void		*env_set(t_env_containter *env, const char *key, const char *val);
+void				*env_set(t_env_containter *env, const char *key, const char *val);
 
 /*
 ** Remove variable with such @key from container
 */
-void		env_rm(t_env_containter *env, const char *key);
+void				env_rm(t_env_containter *env, const char *key);
 
 /*
 ** Remove container and free all allocated memory
 */
-void		env_rm_rf(t_env_containter *env);
+void				env_rm_rf(t_env_containter *env);
 
 /*
 ** Create and allocate variable from the string
@@ -72,5 +72,7 @@ void		env_rm_rf(t_env_containter *env);
 ** "KEY=VALUE" / "KEY="
 */
 struct s_env_var	*env_var_from_str(const char *str);
+
+char				*get_path(char *name, const char *dirs);
 
 #endif
