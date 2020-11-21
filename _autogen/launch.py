@@ -8,6 +8,16 @@ LIBFT = {
 	"sources": ["*.c"],
 	"includes": ["libft"]
 }
+
+ENV_VAR = {
+    "name": "env-var",
+    "out": "build",
+    "type": "lib",
+    "path": "env_var",
+    "sources": ["*.c"],
+    "includes": ["env_var", "libft"]
+}
+
 MIS = {
     "name": "minishell",
     "out": ".",
@@ -15,8 +25,8 @@ MIS = {
     "sources": [
 		"main.c",
 	],
-    "includes": ["libft"],
-    "peerdirs": [LIBFT],
+    "includes": ["libft", "env_var"],
+    "peerdirs": [LIBFT, ENV_VAR],
 }
 
 COMPILERS = {

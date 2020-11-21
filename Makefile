@@ -20,8 +20,8 @@ MINISHELL_FILE = ./minishell
 MINISHELL_SRCS = main.c
 MINISHELL_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(MINISHELL_SRCS))
 MINISHELL_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(MINISHELL_SRCS))
-MINISHELL_LIBS = -l ft -L build
-MINISHELL_INCS = -I libft
+MINISHELL_LIBS = -l ft -L build -l env-var -L build
+MINISHELL_INCS = -I libft -I env_var
 
 # **************************************************************************** #
 # FT TARGET DESCRIPTION
@@ -36,22 +36,34 @@ FT_LIBS =
 FT_INCS = -I libft
 
 # **************************************************************************** #
+# ENV-VAR TARGET DESCRIPTION
+
+ENV-VAR_NAME = env-var
+ENV-VAR_PATH = env_var
+ENV-VAR_FILE = build/libenv-var.a
+ENV-VAR_SRCS = env_get_set.c env_import_export.c env_path.c env_rm.c
+ENV-VAR_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(ENV-VAR_SRCS))
+ENV-VAR_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(ENV-VAR_SRCS))
+ENV-VAR_LIBS = 
+ENV-VAR_INCS = -I env_var -I libft
+
+# **************************************************************************** #
 # GENERIC RULES
 
 .PHONY: all re clean fclean
 .DEFAULT_GOAL = all
 
-all: $(FT_FILE) $(MINISHELL_FILE)
+all: $(FT_FILE) $(ENV-VAR_FILE) $(MINISHELL_FILE)
 
 clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -rf $(FT_FILE) $(MINISHELL_FILE)
+	@rm -rf $(FT_FILE) $(ENV-VAR_FILE) $(MINISHELL_FILE)
 
 re: fclean all
 
-$(MINISHELL_FILE): $(FT_FILE) $(MINISHELL_OBJS)
+$(MINISHELL_FILE): $(FT_FILE) $(ENV-VAR_FILE) $(MINISHELL_OBJS)
 	@$(C_COMPILER) $(C_LFLAGS) $(C_STANDART) -o $(MINISHELL_FILE) $(MINISHELL_OBJS)  $(MINISHELL_LIBS)
 	@printf 'Finished	\033[1;32m\033[7m$@ \033[0m\n\n'
 
@@ -70,4 +82,14 @@ $(OBJ_DIR)/%.c.o: $(FT_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(FT_INCS) -o $@ -c $< -MMD
 
--include $(MINISHELL_DEPS) $(FT_DEPS)
+$(ENV-VAR_FILE): $(ENV-VAR_OBJS)
+	@ar rc $(ENV-VAR_FILE) $(ENV-VAR_OBJS)
+	@ranlib $(ENV-VAR_FILE)
+	@printf 'Finished	\033[1;36m\033[7m$@ \033[0m\n\n'
+
+$(OBJ_DIR)/%.c.o: $(ENV-VAR_PATH)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
+	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(ENV-VAR_INCS) -o $@ -c $< -MMD
+
+-include $(MINISHELL_DEPS) $(FT_DEPS) $(ENV-VAR_DEPS)
