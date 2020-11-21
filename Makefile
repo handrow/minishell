@@ -20,8 +20,8 @@ MINISHELL_FILE = ./minishell
 MINISHELL_SRCS = main.c
 MINISHELL_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(MINISHELL_SRCS))
 MINISHELL_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(MINISHELL_SRCS))
-MINISHELL_LIBS = -l builtins -L build -l ft -L build -l env-var -L build
-MINISHELL_INCS = -I libft -I env_var -I builtins
+MINISHELL_LIBS = -l builtins -L build -l readline -L build -l ft -L build -l env-var -L build
+MINISHELL_INCS = -I libft -I env_var -I builtins -I readline
 
 # **************************************************************************** #
 # BUILTINS TARGET DESCRIPTION
@@ -34,6 +34,18 @@ BUILTINS_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(BUILTINS_SRCS))
 BUILTINS_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(BUILTINS_SRCS))
 BUILTINS_LIBS = 
 BUILTINS_INCS = -I env_var -I libft
+
+# **************************************************************************** #
+# READLINE TARGET DESCRIPTION
+
+READLINE_NAME = readline
+READLINE_PATH = readline
+READLINE_FILE = build/libreadline.a
+READLINE_SRCS = readline.c readline_utils.c
+READLINE_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(READLINE_SRCS))
+READLINE_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(READLINE_SRCS))
+READLINE_LIBS = 
+READLINE_INCS = -I readline -I libft
 
 # **************************************************************************** #
 # FT TARGET DESCRIPTION
@@ -65,17 +77,17 @@ ENV-VAR_INCS = -I env_var -I libft
 .PHONY: all re clean fclean
 .DEFAULT_GOAL = all
 
-all: $(BUILTINS_FILE) $(FT_FILE) $(ENV-VAR_FILE) $(MINISHELL_FILE)
+all: $(BUILTINS_FILE) $(READLINE_FILE) $(FT_FILE) $(ENV-VAR_FILE) $(MINISHELL_FILE)
 
 clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -rf $(BUILTINS_FILE) $(FT_FILE) $(ENV-VAR_FILE) $(MINISHELL_FILE)
+	@rm -rf $(BUILTINS_FILE) $(READLINE_FILE) $(FT_FILE) $(ENV-VAR_FILE) $(MINISHELL_FILE)
 
 re: fclean all
 
-$(MINISHELL_FILE): $(BUILTINS_FILE) $(FT_FILE) $(ENV-VAR_FILE) $(MINISHELL_OBJS)
+$(MINISHELL_FILE): $(BUILTINS_FILE) $(READLINE_FILE) $(FT_FILE) $(ENV-VAR_FILE) $(MINISHELL_OBJS)
 	@$(C_COMPILER) $(C_LFLAGS) $(C_STANDART) -o $(MINISHELL_FILE) $(MINISHELL_OBJS)  $(MINISHELL_LIBS)
 	@printf 'Finished	\033[1;32m\033[7m$@ \033[0m\n\n'
 
@@ -93,6 +105,16 @@ $(OBJ_DIR)/%.c.o: $(BUILTINS_PATH)/%.c
 	@mkdir -p $(OBJ_DIR)
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(BUILTINS_INCS) -o $@ -c $< -MMD
+
+$(READLINE_FILE): $(READLINE_OBJS)
+	@ar rc $(READLINE_FILE) $(READLINE_OBJS)
+	@ranlib $(READLINE_FILE)
+	@printf 'Finished	\033[1;36m\033[7m$@ \033[0m\n\n'
+
+$(OBJ_DIR)/%.c.o: $(READLINE_PATH)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
+	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(READLINE_INCS) -o $@ -c $< -MMD
 
 $(FT_FILE): $(FT_OBJS)
 	@ar rc $(FT_FILE) $(FT_OBJS)
@@ -114,4 +136,4 @@ $(OBJ_DIR)/%.c.o: $(ENV-VAR_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(ENV-VAR_INCS) -o $@ -c $< -MMD
 
--include $(MINISHELL_DEPS) $(BUILTINS_DEPS) $(FT_DEPS) $(ENV-VAR_DEPS)
+-include $(MINISHELL_DEPS) $(BUILTINS_DEPS) $(READLINE_DEPS) $(FT_DEPS) $(ENV-VAR_DEPS)

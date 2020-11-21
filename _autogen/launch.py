@@ -24,8 +24,16 @@ BLT = {
     "type": "lib",
     "path": "builtins",
     "sources": ["*.c"],
-    "includes": ["env_var", "libft"],
-    "peerdirs": [LIBFT, ENV_VAR]
+    "includes": ["env_var", "libft"]
+}
+
+READLINE = {
+    "name": "readline",
+    "out": "build",
+    "type": "lib",
+    "path": "readline",
+    "sources": ["*.c"],
+    "includes": ["readline", "libft"]
 }
 
 MIS = {
@@ -35,8 +43,8 @@ MIS = {
     "sources": [
 		"main.c",
 	],
-    "includes": ["libft", "env_var", "builtins"],
-    "peerdirs": [LIBFT, ENV_VAR, BLT],
+    "includes": ["libft", "env_var", "builtins", "readline"],
+    "peerdirs": [LIBFT, ENV_VAR, BLT, READLINE],
 }
 
 COMPILERS = {
