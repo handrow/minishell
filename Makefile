@@ -1,0 +1,73 @@
+# **************************************************************************** #
+# GENERIC_VARIABLES
+
+OBJ_DIR = build
+
+# **************************************************************************** #
+# COMPILER_OPTIONS
+
+C_COMPILER = clang
+C_STANDART = -std=c99
+C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra
+C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra
+
+# **************************************************************************** #
+# MINISHELL TARGET DESCRIPTION
+
+MINISHELL_NAME = minishell
+MINISHELL_PATH = .
+MINISHELL_FILE = ./minishell
+MINISHELL_SRCS = main.c
+MINISHELL_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(MINISHELL_SRCS))
+MINISHELL_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(MINISHELL_SRCS))
+MINISHELL_LIBS = -l ft -L build
+MINISHELL_INCS = -I libft
+
+# **************************************************************************** #
+# FT TARGET DESCRIPTION
+
+FT_NAME = ft
+FT_PATH = libft
+FT_FILE = build/libft.a
+FT_SRCS = dlst_del.c dlst_del_elem.c dlst_elem.c dlst_insert.c dlst_pop_back.c dlst_pop_front.c dlst_push_back.c dlst_push_front.c dlst_size.c ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_printf.c ft_printf_cs.c ft_printf_diux.c ft_printf_p.c ft_printf_pars.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_base_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c ft_strcmp.c ft_strdup.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c get_next_line.c
+FT_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(FT_SRCS))
+FT_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(FT_SRCS))
+FT_LIBS = 
+FT_INCS = -I libft
+
+# **************************************************************************** #
+# GENERIC RULES
+
+.PHONY: all re clean fclean
+.DEFAULT_GOAL = all
+
+all: $(FT_FILE) $(MINISHELL_FILE)
+
+clean:
+	@rm -rf $(OBJ_DIR)
+
+fclean: clean
+	@rm -rf $(FT_FILE) $(MINISHELL_FILE)
+
+re: fclean all
+
+$(MINISHELL_FILE): $(FT_FILE) $(MINISHELL_OBJS)
+	@$(C_COMPILER) $(C_LFLAGS) $(C_STANDART) -o $(MINISHELL_FILE) $(MINISHELL_OBJS)  $(MINISHELL_LIBS)
+	@printf 'Finished	\033[1;32m\033[7m$@ \033[0m\n\n'
+
+$(OBJ_DIR)/%.c.o: $(MINISHELL_PATH)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
+	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(MINISHELL_INCS) -o $@ -c $< -MMD
+
+$(FT_FILE): $(FT_OBJS)
+	@ar rc $(FT_FILE) $(FT_OBJS)
+	@ranlib $(FT_FILE)
+	@printf 'Finished	\033[1;36m\033[7m$@ \033[0m\n\n'
+
+$(OBJ_DIR)/%.c.o: $(FT_PATH)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
+	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(FT_INCS) -o $@ -c $< -MMD
+
+-include $(MINISHELL_DEPS) $(FT_DEPS)
