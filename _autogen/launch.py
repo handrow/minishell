@@ -18,6 +18,16 @@ ENV_VAR = {
     "includes": ["env_var", "libft"]
 }
 
+BLT = {
+    "name": "builtins",
+    "out": "build",
+    "type": "lib",
+    "path": "builtins",
+    "sources": ["*.c"],
+    "includes": ["env_var", "libft"],
+    "peerdirs": [LIBFT, ENV_VAR]
+}
+
 MIS = {
     "name": "minishell",
     "out": ".",
@@ -25,8 +35,8 @@ MIS = {
     "sources": [
 		"main.c",
 	],
-    "includes": ["libft", "env_var"],
-    "peerdirs": [LIBFT, ENV_VAR],
+    "includes": ["libft", "env_var", "builtins"],
+    "peerdirs": [LIBFT, ENV_VAR, BLT],
 }
 
 COMPILERS = {
