@@ -6,7 +6,7 @@
 /*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 05:22:43 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/23 20:52:03 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/23 21:35:54 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef int t_pipe[2];
 typedef int *t_pipe_ptr;
-typedef t_node *t_redirection_list;
+typedef t_node *t_rdr_list;
 
 // fix that perror isnt allowed only strerror
 
@@ -34,18 +34,18 @@ enum e_instruction
 	IT_PIPE
 };
 
-struct s_rdr
+struct					s_rdr
 {
 	enum e_rdr			type;
 	char				*filename;	
 };
 
-struct s_instruction
+struct 					s_instruction
 {
 	char				**argv;
 	t_pipe				pipe;
 	enum e_instruction	type;
-	t_redirection_list	rdr_list;
+	t_rdr_list			rdr_list;
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 11:20:38 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/21 13:14:24 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/23 21:22:53 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ int		frk_manage_fd(struct s_forky_info *info)
 		is_err = (frk_connect_pipe(info->ou, STDOUT_FILENO) == -1);
 	if (is_err)
 		return (-1);
-	// redirect here
+	frk_do_rdr_list(info->rdrs);
 	return (0);
 }

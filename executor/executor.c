@@ -6,7 +6,7 @@
 /*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 07:50:13 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/21 13:13:12 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/23 21:25:00 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	execute_instructions(t_instruction_list cmd, t_env_containter *env)
 	while ((instr = cmd->content))
 	{
 		info.argv = instr->argv;
+		info.rdrs = instr->rdr_list;
 		fill_pipes(&info, cmd);
 		select_forky(&info);
 		last_pid = ((t_forky_func)info.forky_func)(&info, env);

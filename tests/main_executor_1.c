@@ -30,6 +30,7 @@ int		main(void)
 {
 	t_instruction_list head = NULL;
 	t_env_containter env = NULL;
+	t_instruction_list rdr = NULL;
 
 	env_set(&env, "PATH", "/bin");
 
@@ -38,6 +39,8 @@ int		main(void)
 	dlst_push_back(&head, dlst_elem(&cmd1));
 
 	execute_instructions(head, &env);
+
+	frk_do_rdr_list(rdr->content);
 
 	return (0);
 }
