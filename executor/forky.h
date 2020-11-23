@@ -6,7 +6,7 @@
 /*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 10:07:14 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/21 13:27:23 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/23 20:41:21 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ pid_t				forky_builtin(struct s_forky_info *info, t_env_containter *env);
 void				frk_close_pipe(t_pipe_ptr pip);
 int					frk_connect_pipe(t_pipe_ptr pip, int std_fd);
 int					frk_manage_fd(struct s_forky_info *info);
+void				frk_do_rdr_item(struct s_rdr *rdr);
+void				frk_do_rdr_list(t_redirection_list rdrs);
 
 #endif
