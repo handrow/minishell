@@ -35,7 +35,7 @@ EXECR = {
     "type": "lib",
     "path": "executor",
     "sources": ["*.c"],
-    "includes": ["env_var", "libft", "builtins", "ft_printf", "."]
+    "includes": ["libft", "env_var",  "builtins", "ft_printf", "."]
 }
 
 READLINE = {
@@ -45,6 +45,15 @@ READLINE = {
     "path": "readline",
     "sources": ["*.c"],
     "includes": ["readline", "libft"]
+}
+
+TOKENIZER = {
+    "name": "tokenizer",
+    "out": "build",
+    "type": "lib",
+    "path": "tokenizer",
+    "sources": ["*.c"],
+    "includes": ["tokenizer", "libft"]
 }
 
 PRINTF = {
@@ -63,8 +72,8 @@ MIS = {
     "out": ".",
     "type": "prog",
     "sources": ["main.c"],
-    "includes": ["libft", "env_var", "builtins", "readline", "executor", "ft_printf", "."],
-    "peerdirs": [LIBFT, ENV_VAR, BLT, READLINE, EXECR, PRINTF],
+    "includes": ["tokenizer", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "."],
+    "peerdirs": [EXECR, READLINE, BLT, PRINTF, TOKENIZER, ENV_VAR, LIBFT],
 }
 
 TEST_EXECUTOR_1 = {
@@ -72,9 +81,19 @@ TEST_EXECUTOR_1 = {
     "out": "tests",
     "type": "prog",
     "path": "tests",
-    "sources": ["main_executor_1.c"],
+    "sources": ["executor_1.c"],
     "includes": ["libft", "env_var", "builtins", "readline", "executor", "ft_printf", "."],
-    "peerdirs": [LIBFT, ENV_VAR, BLT, READLINE, EXECR, PRINTF],
+    "peerdirs": [EXECR, READLINE, BLT, PRINTF, TOKENIZER, ENV_VAR, LIBFT],
+}
+
+TEST_TOKENIZER = {
+    "name": "test_token_1.out",
+    "out": "tests",
+    "type": "prog",
+    "path": "tests",
+    "sources": ["tokenizer_1.c"],
+    "includes": ["tokenizer", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "."],
+    "peerdirs": [EXECR, READLINE, BLT, PRINTF, TOKENIZER, ENV_VAR, LIBFT],
 }
 
 # BUNDLE MAIN
@@ -82,7 +101,7 @@ TEST_EXECUTOR_1 = {
 BUNDLE = {
     "type": "bundle",
     "name": "kastet66",
-    "peerdirs": [MIS, TEST_EXECUTOR_1]
+    "peerdirs": [MIS, TEST_EXECUTOR_1, TEST_TOKENIZER]
 }
 
 COMPILERS = {

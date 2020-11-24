@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 17:34:39 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/21 05:31:44 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/24 15:57:49 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ static int			get_line(t_string *buff, t_string *new_line)
 	char			*line_end;
 	size_t			mod_len;
 
-	line_end = find_first_sym(buff->str, "\n;");
-	if (line_end)
+	if ((line_end = ft_memchr(buff->str, '\n', buff->len)))
 		mod_len = line_end - buff->str;
 	else
 		mod_len = buff->len;

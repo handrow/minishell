@@ -1,3 +1,5 @@
+import collections
+
 def collect_target(target, targets_map=dict()):
     if target.get("type", "prog") != "bundle":
         targets_map[target["name"]] = target
@@ -21,8 +23,8 @@ def collect_target_libs(target, lib_targets=dict(), externals=dict()):
 
 
 def collect_target_libs_string(target):
-    externals = dict()
-    lib_targets = dict()
+    externals = collections.OrderedDict()
+    lib_targets = collections.OrderedDict()
     lib_strings = list()
 
     collect_target_libs(target, lib_targets, externals)
@@ -34,7 +36,7 @@ def collect_target_libs_string(target):
 
 
 def collect_libs_rules(target):
-    lib_targets = dict()
+    lib_targets = collections.OrderedDict()
     rule_strings = list()
 
     collect_target_libs(target, lib_targets)
