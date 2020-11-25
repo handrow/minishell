@@ -1,6 +1,7 @@
 #include "tokenizer.h"
 #include "readline.h"
 #include "ft_printf.h"
+#include "parser.h"
 
 char 	*enum_to_str(int i)
 {
@@ -28,20 +29,25 @@ char 	*enum_to_str(int i)
 }
 
 // dummy
-int		main(void)
+int		main(int argc, char **argv, const char **envp)
 {
 	char			*cmd;
 	t_node			*tk_list;
 	struct s_token	*token;
+	t_env_containter env = NULL;
+
+	env_import_from_arr(&env, envp);
 	ft_printf(1,"minishell> ");
 	while(readline(&cmd))
 	{
 		tk_list = tokenize(cmd);
+		derefernce_vars(&tk_list, env);
+		//wordjoin(tk_list);
 		ft_printf(1, "-------------------------\n");
 		while(tk_list)
 		{
 			token = tk_list->content;
-			ft_printf(1, "`%-15s` %-10s\n", token->var, enum_to_str(token->type));
+			ft_printf(1, "%-15s `%s`\n", enum_to_str(token->type), token->var);
 			tk_list = tk_list->next;
 		}
 		ft_printf(1, "-------------------------\n");

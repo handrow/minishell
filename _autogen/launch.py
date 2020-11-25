@@ -56,6 +56,15 @@ TOKENIZER = {
     "includes": ["tokenizer", "libft"]
 }
 
+PARSER = {
+    "name": "parser",
+    "out": "parser",
+    "type": "lib",
+    "path": "parser",
+    "sources": ["*.c"],
+    "includes": ["tokenizer", "env_var", "parser", "libft"]
+}
+
 PRINTF = {
     "name": "printf",
     "out": "ft_printf",
@@ -110,8 +119,8 @@ TEST_TOKENIZER = {
     "type": "prog",
     "path": "tests",
     "sources": ["tokenizer_1.c"],
-    "includes": ["errors", "tokenizer", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "."],
-    "peerdirs": [EXECR, READLINE, BLT, ERR, PRINTF, TOKENIZER, ENV_VAR, LIBFT, SIG],
+    "includes": ["errors", "parser", "tokenizer", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "."],
+    "peerdirs": [EXECR, PARSER, READLINE, BLT, PRINTF, TOKENIZER, ENV_VAR, ERR, LIBFT, SIG]
 }
 
 # BUNDLE MAIN

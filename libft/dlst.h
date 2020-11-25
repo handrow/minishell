@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dlst.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:19:11 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/16 16:26:31 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/25 22:02:31 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct		s_node
 
 typedef void		(*t_del_func)(void *);
 
-void				dlst_insert(t_node **node, t_node *new_elem);
+void				dlst_insert(t_node **root, t_node *after, t_node *new_list);
 void				dlst_push_back(t_node **root, t_node *new_elem);
 void				dlst_push_front(t_node **root, t_node *new_elem);
 t_node				*dlst_pop_back(t_node **root);

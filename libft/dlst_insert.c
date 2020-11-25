@@ -6,20 +6,35 @@
 /*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 18:44:27 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/14 16:44:08 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/25 22:02:23 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void				nodet_insert(t_node **node, t_node *new_elem)
+void		dlst_insert(t_node **root, t_node *after, t_node *new_list)
 {
-	t_node *tmp;
+	t_node	*last;
 
-	tmp = (*node)->next;
-	(*node)->next = new_elem;
-	new_elem->next = tmp;
-	new_elem->prev = *node;
-	if (tmp)
-		tmp->prev = new_elem;
+	if (!(*root) && (new_list))
+		*root = new_list;
+	else if (!new_list)
+		return ;
+	else if (!after || !after)
+	{
+		while (new_list->next)
+			new_list = new_list->next;
+		dlst_push_front(root, new_list);
+	}
+	else
+	{
+		new_list->prev = after;
+		last = new_list;
+		while (last->next)
+			last = last->next;
+		last->next = after->next;
+		if (after->next)
+			after->next->prev = last;
+		after->next = new_list;
+	}
 }

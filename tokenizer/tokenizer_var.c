@@ -6,7 +6,7 @@
 /*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:28:48 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/24 18:55:26 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/25 19:10:39 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void		fsm_hndl_var(struct s_fsm_state *stt)
 bool		fsm_filter_var_end(const struct s_fsm_state *stt)
 {
 	const bool	var = stt->c_stt == STT_VAR || stt->c_stt == STT_DVAR;
+	const char	str = stt->in_str[stt->i];
 
-	return (var && !(ft_isalnum(stt->in_str[stt->i])));
+	return (var && !(ft_isalnum(str)) && str != '_');
 }
 
 void		fsm_hndl_var_end(struct s_fsm_state *stt)
