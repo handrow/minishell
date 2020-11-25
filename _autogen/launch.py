@@ -4,7 +4,7 @@ from package import generate_makefile
 
 LIBFT = {
 	"name": "ft",
-	"out": "build",
+	"out": "libft",
 	"type": "lib",
 	"path": "libft",
 	"sources": ["*.c"],
@@ -13,7 +13,7 @@ LIBFT = {
 
 ENV_VAR = {
     "name": "env-var",
-    "out": "build",
+    "out": "env_var",
     "type": "lib",
     "path": "env_var",
     "sources": ["*.c"],
@@ -22,7 +22,7 @@ ENV_VAR = {
 
 BLT = {
     "name": "builtins",
-    "out": "build",
+    "out": "builtins",
     "type": "lib",
     "path": "builtins",
     "sources": ["*.c"],
@@ -31,16 +31,16 @@ BLT = {
 
 EXECR = {
     "name": "executor",
-    "out": "build",
+    "out": "executor",
     "type": "lib",
     "path": "executor",
     "sources": ["*.c"],
-    "includes": ["libft", "env_var",  "builtins", "ft_printf", "."]
+    "includes": ["libft", "env_var",  "builtins", "ft_printf", "errors", "."]
 }
 
 READLINE = {
     "name": "readline",
-    "out": "build",
+    "out": "readline",
     "type": "lib",
     "path": "readline",
     "sources": ["*.c"],
@@ -49,7 +49,7 @@ READLINE = {
 
 TOKENIZER = {
     "name": "tokenizer",
-    "out": "build",
+    "out": "tokenizer",
     "type": "lib",
     "path": "tokenizer",
     "sources": ["*.c"],
@@ -58,11 +58,20 @@ TOKENIZER = {
 
 PRINTF = {
     "name": "printf",
-    "out": "build",
+    "out": "ft_printf",
     "type": "lib",
     "path": "ft_printf",
     "sources": ["*.c"],
     "includes": ["libft", "ft_printf"]
+}
+
+ERR = {
+	"name": "err-minishell",
+	"out": "errors",
+	"type": "lib",
+	"path": "errors",
+	"sources": ["*.c"],
+	"includes": ["ft_printf"]
 }
 
 # EXECUTABLES
@@ -82,8 +91,8 @@ TEST_EXECUTOR_1 = {
     "type": "prog",
     "path": "tests",
     "sources": ["executor_1.c"],
-    "includes": ["libft", "env_var", "builtins", "readline", "executor", "ft_printf", "."],
-    "peerdirs": [EXECR, READLINE, BLT, PRINTF, TOKENIZER, ENV_VAR, LIBFT],
+    "includes": ["errors", "libft", "env_var", "builtins", "readline", "executor", "ft_printf"],
+    "peerdirs": [EXECR, READLINE, BLT, ERR, PRINTF, TOKENIZER, ENV_VAR, LIBFT],
 }
 
 TEST_TOKENIZER = {
@@ -92,8 +101,8 @@ TEST_TOKENIZER = {
     "type": "prog",
     "path": "tests",
     "sources": ["tokenizer_1.c"],
-    "includes": ["tokenizer", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "."],
-    "peerdirs": [EXECR, READLINE, BLT, PRINTF, TOKENIZER, ENV_VAR, LIBFT],
+    "includes": ["errors", "tokenizer", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "."],
+    "peerdirs": [EXECR, READLINE, BLT, ERR, PRINTF, TOKENIZER, ENV_VAR, LIBFT],
 }
 
 # BUNDLE MAIN

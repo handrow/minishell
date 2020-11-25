@@ -2,45 +2,79 @@
 #include "dlst.h"
 #include "executor.h"
 #include "instructions.h"
+#include "err_msg.h"
 
 #include <stdio.h>
 
-const char *argv_ls[] = {
+char *argv_ls[] = {
 	"ls", "-l", "/", NULL
 };
 
-const char *argv_cate[] = {
+char *argv_cate[] = {
 	"cat", "-e", NULL
 };
 
-const char *argv_false[] = {
+char *argv_false[] = {
 	"false", NULL
 };
 
-const char *argv_sleep10[] = {
+char *argv_sleep10[] = {
 	"sleep", "10", NULL
 };
 
-const char *argv_dummy[] = {
+char *argv_dummy[] = {
 	"dummy", NULL
 };
 
-// dummy
 int		main(void)
 {
-	t_instruction_list head = NULL;
 	t_env_containter env = NULL;
-	t_instruction_list rdr = NULL;
 
 	env_set(&env, "PATH", "/bin");
 
-	struct s_instruction cmd1 = { .argv = argv_sleep10, .type = IT_CMD };
+	t_instruction_list cmd_lst = NULL;
+	t_rdr_list cmd1_rdr = NULL;
 
-	dlst_push_back(&head, dlst_elem(&cmd1));
+	struct s_rdr c1_r1 = {
+		.type = RDR_OUT,
+		.filename = "first.txt"
+	};
 
-	execute_instructions(head, &env);
+	struct s_rdr c1_r2 = {
+		.type = RDR_IN,
+		.filename = "not_existant.txt"
+	};
 
-	frk_do_rdr_list(rdr->content);
+	struct s_rdr c1_r3 = {
+		.type = RDR_OUT,
+		.filename = "not_secret.txt"
+	};
+
+	dlst_push_back(&cmd1_rdr, dlst_elem(&c1_r1));
+	dlst_push_back(&cmd1_rdr, dlst_elem(&c1_r2));
+	dlst_push_back(&cmd1_rdr, dlst_elem(&c1_r3));
+
+	struct s_instruction cmd1 = {
+		.type = IT_CMD,
+		.argv = argv_cate,
+		.rdr_list = cmd1_rdr
+	};
+
+	struct s_instruction pip12 = {
+		.type = IT_PIPE
+	};
+
+	struct s_instruction cmd2 = {
+		.type = IT_CMD,
+		.argv = argv_dummy,
+		.rdr_list = NULL
+	};
+
+	dlst_push_back(&cmd_lst, dlst_elem(&cmd1));
+	dlst_push_back(&cmd_lst, dlst_elem(&pip12));
+	dlst_push_back(&cmd_lst, dlst_elem(&cmd2));
+
+	execute_instructions(cmd_lst, &env);
 
 	return (0);
 }

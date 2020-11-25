@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forky_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 11:20:38 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/23 21:22:53 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/25 16:43:02 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,11 @@ int		frk_manage_fd(struct s_forky_info *info)
 	bool			is_err;
 	
 	is_err = false;
-	if (info->in)
-		is_err = (frk_connect_pipe(info->in, STDIN_FILENO) == -1);
-	if (is_err)
-		return (-1);
-	if (info->ou)
-		is_err = (frk_connect_pipe(info->ou, STDOUT_FILENO) == -1);
-	if (is_err)
-		return (-1);
-	frk_do_rdr_list(info->rdrs);
-	return (0);
+	if (!is_err && info->in)
+		is_err = (frk_connect_pipe(info->in, STDIN_FILENO) < 0);
+	if (!is_err && info->ou)
+		is_err = (frk_connect_pipe(info->ou, STDOUT_FILENO) < 0);
+	if (!is_err && info->rdrs)
+		is_err = frk_do_rdr_list(info->rdrs) < 0;
+	return (is_err ? -1 : 0);
 }

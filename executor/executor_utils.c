@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 06:50:06 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/21 15:54:38 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/25 16:59:27 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "builtins.h"
 #include <sys/wait.h>
 #include "ft_printf.h"
+#include "err_msg.h"
 
 void	select_forky(struct s_forky_info *info)
 {
@@ -21,7 +22,7 @@ void	select_forky(struct s_forky_info *info)
 
 	if (!is_blt)
 		info->forky_func = forky_binary;
-	else if (info->in != NULL || info->ou != NULL /* || RDR */)
+	else if (info->in != NULL || info->ou != NULL || info->rdrs != NULL)
 		info->forky_func = forky_builtin_rd;
 	else
 		info->forky_func = forky_builtin;
@@ -52,16 +53,17 @@ int		get_last_ec_n_wait(pid_t last_pid)
 	int		stat_loc;
 	int		exit_code;
 
-	waitpid(last_pid, &stat_loc, 0);
-	if (WIFEXITED(stat_loc))
-		exit_code = WEXITSTATUS(stat_loc);
-	else if (WIFSIGNALED(stat_loc))
-		exit_code = EXIT_STATUS_SIG_BASE + WTERMSIG(stat_loc); // We can notify about killing
-	else
+	if (last_pid > 0)
 	{
-		ft_printf(STDERR_FILENO, "minishell: fatal error: please let me pass it!\n");
-		exit(EXIT_STATUS_ERROR);
+		waitpid(last_pid, &stat_loc, 0);
+		if (WIFEXITED(stat_loc))
+			exit_code = WEXITSTATUS(stat_loc);
+		else if (WIFSIGNALED(stat_loc))
+			exit_code = EXIT_STATUS_SIG_BASE + WTERMSIG(stat_loc);
+			// We can notify about killing
 	}
+	else
+		exit_code = EXIT_STATUS_ERROR;
 	while (wait(&stat_loc) > 0)
 		continue ;
 	return (exit_code);

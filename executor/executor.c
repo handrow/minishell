@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 07:50:13 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/23 21:25:00 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/25 17:02:47 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 #include "libft.h"
+#include "err_msg.h"
 
 void	execute_instructions(t_instruction_list cmd, t_env_containter *env)
 {
@@ -34,7 +35,8 @@ void	execute_instructions(t_instruction_list cmd, t_env_containter *env)
 	}
 	if (info.fork_flag)
 		info.exit_code = get_last_ec_n_wait(last_pid);
-	tmp = ft_itoa(info.exit_code);
+	if ((tmp = ft_itoa(info.exit_code)) == NULL)
+		err_system_n_exit(EXIT_STATUS_ERROR, NULL);
 	env_set(env, "?", tmp); // check error
 	free(tmp);
 }

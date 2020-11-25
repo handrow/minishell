@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rdr.c                                              :+:      :+:    :+:   */
+/*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:45:49 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/23 21:27:23 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/25 16:46:03 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "instructions.h"
 #include "forky.h"
+#include "err_msg.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -27,7 +28,7 @@ static int		get_flags(enum e_rdr type)
 	return (0);
 }
 
-static void		frk_do_rdr_item(struct s_rdr *rdr)
+static int		frk_do_rdr_item(struct s_rdr *rdr)
 {
 	const int	flags = get_flags(rdr->type);
 	const int	mode = 0644;
@@ -35,19 +36,25 @@ static void		frk_do_rdr_item(struct s_rdr *rdr)
 	
 	if (fd >= 0)
 	{
-		dup2(fd, rdr->type == RDR_IN
-					? STDIN_FILENO : STDOUT_FILENO);
+		if (dup2(fd, rdr->type == RDR_IN ? STDIN_FILENO : STDOUT_FILENO) < 0)
+			return (-1);
 		close(fd);
 	}
 	else
-		perror(rdr->filename);
+		return (-1);
+	return (0);
 }
 
-void			frk_do_rdr_list(t_rdr_list rdrs)
+int				frk_do_rdr_list(t_rdr_list rdrs)
 {
 	while (rdrs)
 	{
-		frk_do_rdr_item(rdrs->content);
+		if (frk_do_rdr_item(rdrs->content) < 0)
+		{
+			err_system_n_exit(EXIT_STATUS_ERROR,
+				((struct s_rdr *)rdrs->content)->filename);
+		}
 		rdrs = rdrs->next;
 	}
+	return (0);
 }

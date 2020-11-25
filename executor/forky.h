@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forky.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 10:07:14 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/23 21:21:18 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/25 16:40:35 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ pid_t				forky_builtin(struct s_forky_info *info, t_env_containter *env);
 void				frk_close_pipe(t_pipe_ptr pip);
 int					frk_connect_pipe(t_pipe_ptr pip, int std_fd);
 int					frk_manage_fd(struct s_forky_info *info);
-void				frk_do_rdr_list(t_rdr_list rdrs);
+int					frk_do_rdr_list(t_rdr_list rdrs);
 
 #endif
