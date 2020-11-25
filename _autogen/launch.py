@@ -62,7 +62,7 @@ PARSER = {
     "type": "lib",
     "path": "parser",
     "sources": ["*.c"],
-    "includes": ["tokenizer", "env_var", "parser", "libft"]
+    "includes": ["tokenizer", "ft_printf", "env_var", "parser", "libft", "."]
 }
 
 PRINTF = {

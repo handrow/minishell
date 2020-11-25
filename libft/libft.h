@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 20:44:17 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/21 15:22:39 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/25 22:16:52 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void				ft_putnbr_fd(long n, int fd);
 char				*ft_strchr(const char *string, int symbol);
 char				*ft_strdup(const char *s);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strappend(char **s1, char const *s2);
 size_t				ft_strlcat (char *dst, const char *src, size_t size);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlen(const char *s);

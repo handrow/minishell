@@ -17,11 +17,11 @@ C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra
 PARSER_NAME = parser
 PARSER_PATH = parser
 PARSER_FILE = parser/libparser.a
-PARSER_SRCS = mini_tokenizer.c mini_tokenizer_arrs.c parser_dereference_var.c
+PARSER_SRCS = parser_wordjoin.c mini_tokenizer.c mini_tokenizer_arrs.c parser_dereference_var.c
 PARSER_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(PARSER_SRCS))
 PARSER_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(PARSER_SRCS))
 PARSER_LIBS = 
-PARSER_INCS = -I tokenizer -I env_var -I parser -I libft
+PARSER_INCS = -I tokenizer -I ft_printf -I env_var -I parser -I libft -I .
 
 # **************************************************************************** #
 # BUILTINS TARGET DESCRIPTION
@@ -137,7 +137,7 @@ MINISHELL_INCS = -I tokenizer -I libft -I env_var -I builtins -I readline -I exe
 FT_NAME = ft
 FT_PATH = libft
 FT_FILE = libft/libft.a
-FT_SRCS = ft_strchr.c ft_split.c ft_strtrim.c ft_bzero.c ft_strnstr.c ft_strmapi.c dlst_del_elem.c ft_isprint.c ft_atoi.c dlst_pop_front.c dlst_insert.c ft_strdup.c dlst_del.c ft_tolower.c ft_strcmp.c ft_toupper.c ft_substr.c ft_memchr.c ft_putnbr_fd.c ft_strlcpy.c ft_itoa.c ft_memset.c ft_calloc.c dlst_push_front.c get_next_line.c dlst_size.c ft_strlen.c dlst_push_back.c ft_putchar_fd.c ft_isascii.c ft_memccpy.c ft_strlcat.c ft_putendl_fd.c ft_memcmp.c ft_isdigit.c ft_strrchr.c dlst_elem.c ft_putstr_fd.c ft_isalpha.c ft_strncmp.c ft_isalnum.c ft_memcpy.c ft_memmove.c dlst_pop_back.c ft_strjoin.c
+FT_SRCS = ft_strchr.c ft_split.c ft_strtrim.c ft_bzero.c ft_strnstr.c ft_strmapi.c dlst_del_elem.c ft_isprint.c ft_atoi.c dlst_pop_front.c dlst_insert.c ft_strdup.c dlst_del.c ft_tolower.c ft_strcmp.c ft_toupper.c ft_substr.c ft_memchr.c ft_putnbr_fd.c ft_strlcpy.c ft_itoa.c ft_memset.c ft_calloc.c dlst_push_front.c get_next_line.c dlst_size.c ft_strlen.c dlst_push_back.c ft_putchar_fd.c ft_isascii.c ft_memccpy.c ft_strlcat.c ft_putendl_fd.c ft_strappend.c ft_memcmp.c ft_isdigit.c ft_strrchr.c dlst_elem.c ft_putstr_fd.c ft_isalpha.c ft_strncmp.c ft_isalnum.c ft_memcpy.c ft_memmove.c dlst_pop_back.c ft_strjoin.c
 FT_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(FT_SRCS))
 FT_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(FT_SRCS))
 FT_LIBS = 

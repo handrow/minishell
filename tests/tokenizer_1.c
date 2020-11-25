@@ -42,7 +42,7 @@ int		main(int argc, char **argv, const char **envp)
 	{
 		tk_list = tokenize(cmd);
 		derefernce_vars(&tk_list, env);
-		//wordjoin(tk_list);
+		tk_list = wordjoin(tk_list);
 		ft_printf(1, "-------------------------\n");
 		while(tk_list)
 		{
