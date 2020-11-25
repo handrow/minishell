@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 16:08:57 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/21 10:19:32 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/25 19:21:42 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 struct				s_env_var
 {
 	char			*key;
-	char			*value;	
+	char			*value;
 };
 
 typedef t_node		*t_env_containter;
@@ -30,7 +30,8 @@ typedef t_node		*t_env_containter;
 **
 ** Return: NULL if allocation failes
 */
-void				*env_import_from_arr(t_env_containter *env, const char **arr);
+void				*env_import_from_arr(t_env_containter *env,
+										const char **arr);
 
 /*
 ** Create null-terminated string array from env_container
@@ -54,7 +55,8 @@ const char			*env_get(t_env_containter *env, const char *key);
 **
 ** Return: NULL if allocation failed
 */
-void				*env_set(t_env_containter *env, const char *key, const char *val);
+void				*env_set(t_env_containter *env, const char *key,
+							const char *val);
 
 /*
 ** Remove variable with such @key from container

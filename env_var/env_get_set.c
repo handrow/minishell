@@ -6,12 +6,13 @@
 /*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 18:39:23 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/19 00:16:13 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/25 19:49:59 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_var.h"
 #include "libft.h"
+#include "err_msg.h"
 
 const char	*env_get(t_env_containter *env, const char *key)
 {
@@ -32,7 +33,7 @@ void		*env_set(t_env_containter *env, const char *key, const char *val)
 {
 	t_node				*node;
 	struct s_env_var	*var;
-	
+
 	node = *env;
 	while (node)
 	{
@@ -40,15 +41,19 @@ void		*env_set(t_env_containter *env, const char *key, const char *val)
 		if (ft_strcmp(var->key, key) == 0)
 		{
 			free(var->value);
-			var->value = ft_strdup(val);
+			if (!(var->value = ft_strdup(val)))
+				err_system_n_exit(2, NULL);
 			return (var->value);
 		}
 		node = node->next;
 	}
-	var = malloc(sizeof(struct s_env_var)); // manage error
-	var->key = ft_strdup(key); // manage error
-	var->value = ft_strdup(val); // manage error
-	node = dlst_elem(var); // manage error
+	if (!(var = malloc(sizeof(struct s_env_var))))
+		err_system_n_exit(2, NULL);
+	var->key = ft_strdup(key);
+	var->value = ft_strdup(val);
+	node = dlst_elem(var);
+	if (!var->key || !var->value || !node)
+		err_system_n_exit(2, NULL);
 	dlst_push_front(env, node);
 	return (node);
 }

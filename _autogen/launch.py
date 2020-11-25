@@ -17,7 +17,7 @@ ENV_VAR = {
     "type": "lib",
     "path": "env_var",
     "sources": ["*.c"],
-    "includes": ["env_var", "libft"]
+    "includes": ["env_var", "libft", "errors"]
 }
 
 BLT = {

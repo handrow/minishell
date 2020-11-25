@@ -81,7 +81,7 @@ ENV-VAR_SRCS = env_path.c env_get_set.c env_rm.c env_import_export.c
 ENV-VAR_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(ENV-VAR_SRCS))
 ENV-VAR_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(ENV-VAR_SRCS))
 ENV-VAR_LIBS = 
-ENV-VAR_INCS = -I env_var -I libft
+ENV-VAR_INCS = -I env_var -I libft -I errors
 
 # **************************************************************************** #
 # PRINTF TARGET DESCRIPTION

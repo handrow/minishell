@@ -6,11 +6,12 @@
 /*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:23:37 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/19 00:18:29 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/25 19:46:05 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "err_msg.h"
 #include <sys/types.h>
 #include <dirent.h>
 
@@ -32,15 +33,18 @@ static char	*compare_n_join(const char *name1, const char *name2,
 {
 	char	*tmp;
 	char	*path;
-	
+
 	if (ft_strcmp(name1, name2) != 0)
 		return (NULL);
 	path = NULL;
 	if ((tmp = ft_strjoin(dir, "/")))
 	{
-		path = ft_strjoin(tmp, name2);
+		if (!(path = ft_strjoin(tmp, name2)))
+			err_system_n_exit(2, NULL);
 		free(tmp);
 	}
+	else
+		err_system_n_exit(2, NULL);
 	return (path);
 }
 
@@ -55,12 +59,12 @@ char		*get_path(char *name, const char *dirs)
 	i = 0;
 	bin_path = NULL;
 	if ((path = ft_split(dirs, ':')) == NULL)
-		return (NULL);
+		err_system_n_exit(2, NULL);
 	while (bin_path == NULL && path[i])
 	{
 		if ((dir = opendir(path[i])))
 		{
-			while(bin_path == NULL && (entry = readdir(dir)))
+			while (bin_path == NULL && (entry = readdir(dir)))
 				bin_path = compare_n_join(entry->d_name, name, path[i]);
 			closedir(dir);
 		}
