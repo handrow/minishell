@@ -6,7 +6,7 @@
 /*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 10:13:01 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/25 16:54:29 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/26 19:09:06 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 #include "forky.h"
 #include "builtins.h"
 #include "err_msg.h"
+#include "shell_signals.h"
 
 static void	frk_child_code(struct s_forky_info *info, t_env_containter *env)
 {
+	sig_reset();
 	if (frk_manage_fd(info) < 0)
 		err_system_n_exit(EXIT_STATUS_ERROR, NULL);
 	exit(blt_get_func(info->argv[0])(info->argv, env));

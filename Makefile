@@ -36,6 +36,18 @@ TOKENIZER_LIBS =
 TOKENIZER_INCS = -I tokenizer -I libft
 
 # **************************************************************************** #
+# SIGNAL TARGET DESCRIPTION
+
+SIGNAL_NAME = signal
+SIGNAL_PATH = signal
+SIGNAL_FILE = signal/libsignal.a
+SIGNAL_SRCS = shell_signals.c
+SIGNAL_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(SIGNAL_SRCS))
+SIGNAL_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(SIGNAL_SRCS))
+SIGNAL_LIBS = 
+SIGNAL_INCS = -I shell_signals
+
+# **************************************************************************** #
 # EXECUTOR TARGET DESCRIPTION
 
 EXECUTOR_NAME = executor
@@ -45,7 +57,7 @@ EXECUTOR_SRCS = executor.c forky_utils.c forky_builtin_rdr.c redirection.c forky
 EXECUTOR_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(EXECUTOR_SRCS))
 EXECUTOR_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(EXECUTOR_SRCS))
 EXECUTOR_LIBS = 
-EXECUTOR_INCS = -I libft -I env_var -I builtins -I ft_printf -I errors -I .
+EXECUTOR_INCS = -I libft -I env_var -I builtins -I ft_printf -I errors -I signal -I .
 
 # **************************************************************************** #
 # TEST_EXEC_1.OUT TARGET DESCRIPTION
@@ -56,8 +68,8 @@ TEST_EXEC_1.OUT_FILE = tests/test_exec_1.out
 TEST_EXEC_1.OUT_SRCS = executor_1.c
 TEST_EXEC_1.OUT_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(TEST_EXEC_1.OUT_SRCS))
 TEST_EXEC_1.OUT_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(TEST_EXEC_1.OUT_SRCS))
-TEST_EXEC_1.OUT_LIBS = -l executor -L executor -l readline -L readline -l builtins -L builtins -l err-minishell -L errors -l printf -L ft_printf -l tokenizer -L tokenizer -l env-var -L env_var -l ft -L libft
-TEST_EXEC_1.OUT_INCS = -I errors -I libft -I env_var -I builtins -I readline -I executor -I ft_printf
+TEST_EXEC_1.OUT_LIBS = -l executor -L executor -l readline -L readline -l builtins -L builtins -l err-minishell -L errors -l printf -L ft_printf -l tokenizer -L tokenizer -l env-var -L env_var -l ft -L libft -l signal -L signal
+TEST_EXEC_1.OUT_INCS = -I errors -I libft -I env_var -I builtins -I readline -I executor -I ft_printf -I shell_signals
 
 # **************************************************************************** #
 # ERR-MINISHELL TARGET DESCRIPTION
@@ -104,8 +116,8 @@ MINISHELL_FILE = ./minishell
 MINISHELL_SRCS = main.c
 MINISHELL_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(MINISHELL_SRCS))
 MINISHELL_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(MINISHELL_SRCS))
-MINISHELL_LIBS = -l executor -L executor -l readline -L readline -l builtins -L builtins -l printf -L ft_printf -l tokenizer -L tokenizer -l env-var -L env_var -l ft -L libft
-MINISHELL_INCS = -I tokenizer -I libft -I env_var -I builtins -I readline -I executor -I ft_printf -I .
+MINISHELL_LIBS = -l executor -L executor -l readline -L readline -l builtins -L builtins -l printf -L ft_printf -l tokenizer -L tokenizer -l env-var -L env_var -l ft -L libft -l signal -L signal
+MINISHELL_INCS = -I tokenizer -I libft -I env_var -I builtins -I readline -I executor -I ft_printf -I shell_signals -I .
 
 # **************************************************************************** #
 # FT TARGET DESCRIPTION
@@ -140,7 +152,7 @@ TEST_TOKEN_1.OUT_FILE = tests/test_token_1.out
 TEST_TOKEN_1.OUT_SRCS = tokenizer_1.c
 TEST_TOKEN_1.OUT_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(TEST_TOKEN_1.OUT_SRCS))
 TEST_TOKEN_1.OUT_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(TEST_TOKEN_1.OUT_SRCS))
-TEST_TOKEN_1.OUT_LIBS = -l executor -L executor -l readline -L readline -l builtins -L builtins -l err-minishell -L errors -l printf -L ft_printf -l tokenizer -L tokenizer -l env-var -L env_var -l ft -L libft
+TEST_TOKEN_1.OUT_LIBS = -l executor -L executor -l readline -L readline -l builtins -L builtins -l err-minishell -L errors -l printf -L ft_printf -l tokenizer -L tokenizer -l env-var -L env_var -l ft -L libft -l signal -L signal
 TEST_TOKEN_1.OUT_INCS = -I errors -I tokenizer -I libft -I env_var -I builtins -I readline -I executor -I ft_printf -I .
 
 # **************************************************************************** #
@@ -149,13 +161,13 @@ TEST_TOKEN_1.OUT_INCS = -I errors -I tokenizer -I libft -I env_var -I builtins -
 .PHONY: all re clean fclean
 .DEFAULT_GOAL = all
 
-all: $(BUILTINS_FILE) $(TOKENIZER_FILE) $(EXECUTOR_FILE) $(ERR-MINISHELL_FILE) $(ENV-VAR_FILE) $(PRINTF_FILE) $(FT_FILE) $(READLINE_FILE) $(TEST_EXEC_1.OUT_FILE) $(MINISHELL_FILE) $(TEST_TOKEN_1.OUT_FILE)
+all: $(BUILTINS_FILE) $(TOKENIZER_FILE) $(SIGNAL_FILE) $(EXECUTOR_FILE) $(ERR-MINISHELL_FILE) $(ENV-VAR_FILE) $(PRINTF_FILE) $(FT_FILE) $(READLINE_FILE) $(TEST_EXEC_1.OUT_FILE) $(MINISHELL_FILE) $(TEST_TOKEN_1.OUT_FILE)
 
 clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -rf $(BUILTINS_FILE) $(TOKENIZER_FILE) $(EXECUTOR_FILE) $(ERR-MINISHELL_FILE) $(ENV-VAR_FILE) $(PRINTF_FILE) $(FT_FILE) $(READLINE_FILE) $(TEST_EXEC_1.OUT_FILE) $(MINISHELL_FILE) $(TEST_TOKEN_1.OUT_FILE)
+	@rm -rf $(BUILTINS_FILE) $(TOKENIZER_FILE) $(SIGNAL_FILE) $(EXECUTOR_FILE) $(ERR-MINISHELL_FILE) $(ENV-VAR_FILE) $(PRINTF_FILE) $(FT_FILE) $(READLINE_FILE) $(TEST_EXEC_1.OUT_FILE) $(MINISHELL_FILE) $(TEST_TOKEN_1.OUT_FILE)
 
 re: fclean all
 
@@ -179,6 +191,16 @@ $(OBJ_DIR)/%.c.o: $(TOKENIZER_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(TOKENIZER_INCS) -o $@ -c $< -MMD
 
+$(SIGNAL_FILE): $(SIGNAL_OBJS)
+	@ar rc $(SIGNAL_FILE) $(SIGNAL_OBJS)
+	@ranlib $(SIGNAL_FILE)
+	@printf 'Finished	\033[1;36m\033[7m$@ \033[0m\n\n'
+
+$(OBJ_DIR)/%.c.o: $(SIGNAL_PATH)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
+	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(SIGNAL_INCS) -o $@ -c $< -MMD
+
 $(EXECUTOR_FILE): $(EXECUTOR_OBJS)
 	@ar rc $(EXECUTOR_FILE) $(EXECUTOR_OBJS)
 	@ranlib $(EXECUTOR_FILE)
@@ -189,7 +211,7 @@ $(OBJ_DIR)/%.c.o: $(EXECUTOR_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(EXECUTOR_INCS) -o $@ -c $< -MMD
 
-$(TEST_EXEC_1.OUT_FILE): $(EXECUTOR_FILE) $(READLINE_FILE) $(BUILTINS_FILE) $(ERR-MINISHELL_FILE) $(PRINTF_FILE) $(TOKENIZER_FILE) $(ENV-VAR_FILE) $(FT_FILE) $(TEST_EXEC_1.OUT_OBJS)
+$(TEST_EXEC_1.OUT_FILE): $(EXECUTOR_FILE) $(READLINE_FILE) $(BUILTINS_FILE) $(ERR-MINISHELL_FILE) $(PRINTF_FILE) $(TOKENIZER_FILE) $(ENV-VAR_FILE) $(FT_FILE) $(SIGNAL_FILE) $(TEST_EXEC_1.OUT_OBJS)
 	@$(C_COMPILER) $(C_LFLAGS) $(C_STANDART) -o $(TEST_EXEC_1.OUT_FILE) $(TEST_EXEC_1.OUT_OBJS)  $(TEST_EXEC_1.OUT_LIBS)
 	@printf 'Finished	\033[1;32m\033[7m$@ \033[0m\n\n'
 
@@ -228,7 +250,7 @@ $(OBJ_DIR)/%.c.o: $(PRINTF_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(PRINTF_INCS) -o $@ -c $< -MMD
 
-$(MINISHELL_FILE): $(EXECUTOR_FILE) $(READLINE_FILE) $(BUILTINS_FILE) $(PRINTF_FILE) $(TOKENIZER_FILE) $(ENV-VAR_FILE) $(FT_FILE) $(MINISHELL_OBJS)
+$(MINISHELL_FILE): $(EXECUTOR_FILE) $(READLINE_FILE) $(BUILTINS_FILE) $(PRINTF_FILE) $(TOKENIZER_FILE) $(ENV-VAR_FILE) $(FT_FILE) $(SIGNAL_FILE) $(MINISHELL_OBJS)
 	@$(C_COMPILER) $(C_LFLAGS) $(C_STANDART) -o $(MINISHELL_FILE) $(MINISHELL_OBJS)  $(MINISHELL_LIBS)
 	@printf 'Finished	\033[1;32m\033[7m$@ \033[0m\n\n'
 
@@ -257,7 +279,7 @@ $(OBJ_DIR)/%.c.o: $(READLINE_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(READLINE_INCS) -o $@ -c $< -MMD
 
-$(TEST_TOKEN_1.OUT_FILE): $(EXECUTOR_FILE) $(READLINE_FILE) $(BUILTINS_FILE) $(ERR-MINISHELL_FILE) $(PRINTF_FILE) $(TOKENIZER_FILE) $(ENV-VAR_FILE) $(FT_FILE) $(TEST_TOKEN_1.OUT_OBJS)
+$(TEST_TOKEN_1.OUT_FILE): $(EXECUTOR_FILE) $(READLINE_FILE) $(BUILTINS_FILE) $(ERR-MINISHELL_FILE) $(PRINTF_FILE) $(TOKENIZER_FILE) $(ENV-VAR_FILE) $(FT_FILE) $(SIGNAL_FILE) $(TEST_TOKEN_1.OUT_OBJS)
 	@$(C_COMPILER) $(C_LFLAGS) $(C_STANDART) -o $(TEST_TOKEN_1.OUT_FILE) $(TEST_TOKEN_1.OUT_OBJS)  $(TEST_TOKEN_1.OUT_LIBS)
 	@printf 'Finished	\033[1;32m\033[7m$@ \033[0m\n\n'
 
@@ -266,4 +288,4 @@ $(OBJ_DIR)/%.c.o: $(TEST_TOKEN_1.OUT_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(TEST_TOKEN_1.OUT_INCS) -o $@ -c $< -MMD
 
--include $(BUILTINS_DEPS) $(TOKENIZER_DEPS) $(EXECUTOR_DEPS) $(TEST_EXEC_1.OUT_DEPS) $(ERR-MINISHELL_DEPS) $(ENV-VAR_DEPS) $(PRINTF_DEPS) $(MINISHELL_DEPS) $(FT_DEPS) $(READLINE_DEPS) $(TEST_TOKEN_1.OUT_DEPS)
+-include $(BUILTINS_DEPS) $(TOKENIZER_DEPS) $(SIGNAL_DEPS) $(EXECUTOR_DEPS) $(TEST_EXEC_1.OUT_DEPS) $(ERR-MINISHELL_DEPS) $(ENV-VAR_DEPS) $(PRINTF_DEPS) $(MINISHELL_DEPS) $(FT_DEPS) $(READLINE_DEPS) $(TEST_TOKEN_1.OUT_DEPS)
