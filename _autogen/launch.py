@@ -53,7 +53,7 @@ TOKENIZER = {
     "type": "lib",
     "path": "tokenizer",
     "sources": ["*.c"],
-    "includes": ["tokenizer", "libft"]
+    "includes": ["tokenizer", "ft_printf", "libft"]
 }
 
 PARSER = {

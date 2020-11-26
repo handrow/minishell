@@ -6,23 +6,22 @@
 /*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 18:39:31 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/26 02:26:40 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/26 22:57:48 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void			push_list(t_node **lst, enum e_token type, void *var)
+static void			push_list(t_node **lst, enum e_token type, void *var)
 {
-	struct s_token *tk;
+	struct s_token *const tk = malloc(sizeof(struct s_token)); // check error
 
-	tk = malloc(sizeof(struct s_token)); // check error
 	tk->type = type;
 	tk->var = var;
 	dlst_push_back(lst, dlst_elem(tk));
 }
 
-t_node			*wordjoin(t_node *tk_list)
+t_node				*prs_join_words(t_node *tk_list)
 {
 	struct s_token	*tk;
 	char			*buff;

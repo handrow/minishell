@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 05:22:43 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/23 21:35:54 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/26 22:24:12 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ typedef t_node *t_rdr_list;
 
 enum e_rdr
 {
-	RDR_IN, // <
-	RDR_OUT, // >
-	RDR_APPEND // >>
+	RDR_IN = 0b1, // <
+	RDR_OUT = 0b10, // >
+	RDR_APPEND = 0b100 // >>
 };
 
 enum e_instruction

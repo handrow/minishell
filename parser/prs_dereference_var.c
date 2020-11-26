@@ -6,7 +6,7 @@
 /*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 15:00:10 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/25 22:04:50 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/26 23:07:44 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static inline t_node	*dereferense_var_into_list(t_node **tk_list,
 	return (tmp);
 }
 
-void				derefernce_vars(t_node **tk_list, t_env_containter env)
+void					prs_derefernce_vars(t_node **tk_list,
+						t_env_containter env)
 {
 	struct s_token	*tk;
 	t_node			*tmp;

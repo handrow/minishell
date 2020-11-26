@@ -17,7 +17,7 @@ C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra
 PARSER_NAME = parser
 PARSER_PATH = parser
 PARSER_FILE = parser/libparser.a
-PARSER_SRCS = parser_wordjoin.c mini_tokenizer.c mini_tokenizer_arrs.c parser_dereference_var.c
+PARSER_SRCS = prs_create_instruction_list.c parser.c mini_tokenizer.c prs_join_words.c mini_tokenizer_arrs.c prs_dereference_var.c prs_make_tkn_group.c prs_check_errors.c prs_setup_filenames.c
 PARSER_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(PARSER_SRCS))
 PARSER_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(PARSER_SRCS))
 PARSER_LIBS = 
@@ -41,11 +41,11 @@ BUILTINS_INCS = -I env_var -I libft
 TOKENIZER_NAME = tokenizer
 TOKENIZER_PATH = tokenizer
 TOKENIZER_FILE = tokenizer/libtokenizer.a
-TOKENIZER_SRCS = tokenizer_squote.c tokenizer.c tokenizer_dquote.c tokenizer_pipe.c tokenizer_comma.c tokenizer_var.c tokenizer_space.c tokenizer_rdrs.c tokenizer_arrs.c tokenizer_end.c tokenizer_word.c
+TOKENIZER_SRCS = tokenizer_squote.c tokenizer.c tokenizer_dquote.c tokenizer_pipe.c tokenizer_comma.c tokenizer_var.c tokenizer_space.c tokenizer_rdrs.c tokenizer_arrs.c tokenizer_end.c tokenizer_word.c tokenizer_utils.c
 TOKENIZER_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(TOKENIZER_SRCS))
 TOKENIZER_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(TOKENIZER_SRCS))
 TOKENIZER_LIBS = 
-TOKENIZER_INCS = -I tokenizer -I libft
+TOKENIZER_INCS = -I tokenizer -I ft_printf -I libft
 
 # **************************************************************************** #
 # SIGNAL TARGET DESCRIPTION

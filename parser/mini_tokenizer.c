@@ -6,7 +6,7 @@
 /*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 11:19:36 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/25 17:20:55 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/26 19:28:15 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,6 @@ static inline void		struct_state_init(struct s_fsm_state *stt, char *cmd)
 	stt->i = stt->st;
 	stt->run = true;
 	stt->tk_list = NULL;
-}
-
-void					token_free(void *tk_addr)
-{
-	const struct s_token *tk = tk_addr;
-
-	free(tk->var);
-	free((void *)tk);
 }
 
 t_node					*tokenize_var(char *var)

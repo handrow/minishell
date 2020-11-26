@@ -6,11 +6,12 @@
 /*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 11:19:36 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/24 18:50:58 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/26 22:19:35 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+#include "ft_printf.h"
 
 void					tkn_add_none(struct s_fsm_state *stt)
 {
@@ -30,6 +31,16 @@ static inline void		struct_state_init(struct s_fsm_state *stt, char *cmd)
 	stt->i = stt->st;
 	stt->run = true;
 	stt->tk_list = NULL;
+}
+
+t_node					*check_error(struct s_fsm_state	stt)
+{
+	if (stt.c_stt == STT_DQ || stt.c_stt == STT_SQ)
+	{
+		ft_printf(2, "ERROR\n");
+		dlst_del(&stt.tk_list, token_free);
+	}
+	return (stt.tk_list);
 }
 
 t_node					*tokenize(char *cmd)
@@ -53,5 +64,5 @@ t_node					*tokenize(char *cmd)
 		if (func_idx == FSM_HANDLERS_NUM)
 			stt_default_handler(&stt);
 	}
-	return (stt.tk_list);
+	return (check_error(stt));
 }

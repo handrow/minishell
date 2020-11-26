@@ -6,33 +6,29 @@
 /*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 22:14:31 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/25 22:42:57 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/26 23:29:26 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strappend(char **s1, char const *s2)
+char		*ft_strappend(char **src, char const *apx)
 {
-	char	*dst;
-	size_t	lens1;
-	size_t	lens2;
+	char			*new_str;
+	const size_t	src_len = *src ? ft_strlen(*src) : 0;
+	const size_t	apx_len = ft_strlen(apx);
 
-	if (!s2)
-		return (0);
-	if (!(*s1))
+	if (!(*src))
 	{
-		*s1 = ft_strdup(s2);
-		return (*s1);
+		*src = ft_strdup(apx);
+		return (*src);
 	}
-	lens1 = (ft_strlen(*s1));
-	lens2 = (ft_strlen(s2));
-	dst = (char *)malloc(sizeof(char) * (lens1 + lens2 + 1));
-	if (!dst)
-		return (0);
-	ft_strlcpy(dst, *s1, lens1 + 1);
-	ft_strlcat(dst, s2, lens1 + lens2 + 1);
-	free(*s1);
-	*s1 = dst;
-	return (dst);
+	new_str = (char *)malloc(sizeof(char) * (src_len + apx_len + 1));
+	if (!new_str)
+		return (NULL);
+	ft_memcpy(new_str, *src, src_len);
+	ft_memcpy(new_str + src_len, apx, apx_len);
+	free(*src);
+	*src = new_str;
+	return (new_str);
 }

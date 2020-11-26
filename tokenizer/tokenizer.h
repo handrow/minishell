@@ -6,7 +6,7 @@
 /*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 11:07:38 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/24 19:09:58 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/26 22:24:38 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,17 @@ extern t_fsm_tkn_func g_fsm_tkn_funcs[];
 
 enum					e_token
 {
-	TK_WORD = 0b0,
-	TK_SP = 0b1,
-	TK_COMMA = 0b10,
-	TK_PIPE = 0b100,
-	TK_VAR = 0b1000,
-	TK_DVAR = 0b10000,
-	TK_RDR_IN = 0b100000,
-	TK_RDR_OUT = 0b1000000,
-	TK_RDR_OUT_AP = 0b10000000
+	TK_RDR_IN = 0b1,
+	TK_RDR_OUT = 0b10,
+	TK_RDR_OUT_AP = 0b100,
+	TK_WORD = 0b1000,
+	TK_SP = 0b10000,
+	TK_COMMA = 0b100000,
+	TK_PIPE = 0b1000000,
+	TK_VAR = 0b10000000,
+	TK_DVAR = 0b100000000,
+	TK_FNAME = 0b1000000000,
+	TK_RDRS = TK_RDR_IN | TK_RDR_OUT | TK_RDR_OUT_AP
 };
 
 struct					s_token
@@ -69,6 +71,7 @@ struct					s_token
 };
 
 t_node					*tokenize(char *cmd);
+void					token_free(void *tk_addr);
 
 bool					fsm_filter_word(const struct s_fsm_state *stt);
 void					fsm_hndl_word(struct s_fsm_state *stt);
