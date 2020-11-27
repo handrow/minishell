@@ -26,7 +26,7 @@ BLT = {
     "type": "lib",
     "path": "builtins",
     "sources": ["*.c"],
-    "includes": ["env_var", "libft"]
+    "includes": ["env_var", "libft", "errors", "ft_printf"]
 }
 
 EXECR = {
