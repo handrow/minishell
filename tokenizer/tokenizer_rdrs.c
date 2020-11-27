@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_rdrs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 17:05:13 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/24 19:17:33 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/27 23:31:14 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+#include "err_msg.h"
 
 bool		fsm_filter_rdrs(const struct s_fsm_state *stt)
 {
@@ -22,8 +23,10 @@ bool		fsm_filter_rdrs(const struct s_fsm_state *stt)
 
 void		tkn_add_rdr_out_ap(struct s_fsm_state *stt)
 {
-	struct s_token *const tk = malloc(sizeof(struct s_token)); //check error
+	struct s_token *const tk = malloc(sizeof(struct s_token));
 
+	if (!tk)
+		err_system_n_exit(3, NULL);
 	tk->type = TK_RDR_OUT_AP;
 	tk->var = NULL;
 	dlst_push_back(&stt->tk_list, dlst_elem(tk));
@@ -31,8 +34,10 @@ void		tkn_add_rdr_out_ap(struct s_fsm_state *stt)
 
 void		tkn_add_rdr_out(struct s_fsm_state *stt)
 {
-	struct s_token *const tk = malloc(sizeof(struct s_token)); //check error
+	struct s_token *const tk = malloc(sizeof(struct s_token));
 
+	if (!tk)
+		err_system_n_exit(3, NULL);
 	tk->type = TK_RDR_OUT;
 	tk->var = NULL;
 	dlst_push_back(&stt->tk_list, dlst_elem(tk));
@@ -40,8 +45,10 @@ void		tkn_add_rdr_out(struct s_fsm_state *stt)
 
 void		tkn_add_rdr_in(struct s_fsm_state *stt)
 {
-	struct s_token *const tk = malloc(sizeof(struct s_token)); //check error
+	struct s_token *const tk = malloc(sizeof(struct s_token));
 
+	if (!tk)
+		err_system_n_exit(3, NULL);
 	tk->type = TK_RDR_IN;
 	tk->var = NULL;
 	dlst_push_back(&stt->tk_list, dlst_elem(tk));

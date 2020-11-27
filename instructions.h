@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 05:22:43 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/26 22:24:12 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/28 00:58:47 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef int *t_pipe_ptr;
 typedef t_node *t_rdr_list;
 
 // fix that perror isnt allowed only strerror
+typedef t_node		*t_instruction_list;
 
 enum e_rdr
 {

@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.h                                         :+:      :+:    :+:   */
+/*   prs_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/21 05:28:32 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 00:58:28 by jiandre          ###   ########.fr       */
+/*   Created: 2020/11/28 00:56:17 by jiandre           #+#    #+#             */
+/*   Updated: 2020/11/28 01:11:28 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTOR_H
-# define EXECUTOR_H
+#include "parser.h"
+#include "instructions.h"
 
-# include "forky.h"
+void		rdr_free(void *rdr_addr)
+{
+	struct s_rdr *const rdr = rdr_addr;
 
-void				execute_instructions(t_instruction_list cmds, t_env_containter *env);
-void				select_forky(struct s_forky_info *info);
-void				fill_pipes(struct s_forky_info *info, t_node *cmd);
-int					get_last_ec_n_wait(pid_t last_pid);
+	free(rdr->filename);
+	free(rdr);
+}
 
-#endif
+void		instruction_free(void *isntr_addr)
+{
+	struct s_instruction *const instr = isntr_addr;
+
+	if (instr->type == IT_CMD)
+		str_arr_free(instr->argv);
+	dlst_del(&instr->rdr_list, rdr_free);
+	free(instr);
+}

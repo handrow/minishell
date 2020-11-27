@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_var.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:28:48 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/26 22:49:56 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/27 22:49:08 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+#include "err_msg.h"
 
 bool		fsm_filter_var(const struct s_fsm_state *stt)
 {
@@ -41,9 +42,13 @@ void		fsm_hndl_var_end(struct s_fsm_state *stt)
 
 void		tkn_add_var(struct s_fsm_state *stt)
 {
-	struct s_token *const tk = malloc(sizeof(struct s_token)); //check error
+	struct s_token *const tk = malloc(sizeof(struct s_token));
 
+	if (!tk)
+		err_system_n_exit(3, NULL);
 	tk->type = stt->c_stt == STT_VAR ? TK_VAR : TK_DVAR;
-	tk->var = ft_substr(stt->in_str, stt->st, stt->i - stt->st); //check error
+	tk->var = ft_substr(stt->in_str, stt->st, stt->i - stt->st);
+	if (!tk->var)
+		err_system_n_exit(3, NULL);
 	dlst_push_back(&stt->tk_list, dlst_elem(tk));
 }

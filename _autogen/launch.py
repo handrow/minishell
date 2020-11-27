@@ -53,7 +53,7 @@ TOKENIZER = {
     "type": "lib",
     "path": "tokenizer",
     "sources": ["*.c"],
-    "includes": ["tokenizer", "ft_printf", "libft"]
+    "includes": ["tokenizer", "ft_printf", "libft", "errors"]
 }
 
 PARSER = {
@@ -62,7 +62,7 @@ PARSER = {
     "type": "lib",
     "path": "parser",
     "sources": ["*.c"],
-    "includes": ["tokenizer", "ft_printf", "env_var", "parser", "libft", "."]
+    "includes": ["tokenizer", "ft_printf", "errors", "env_var", "parser", "libft", "."]
 }
 
 PRINTF = {

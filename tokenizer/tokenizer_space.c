@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_space.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 11:28:22 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/24 18:58:15 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/27 22:49:05 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+#include "err_msg.h"
 
 bool		fsm_filter_space(const struct s_fsm_state *stt)
 {
@@ -28,8 +29,10 @@ void		fsm_hndl_space(struct s_fsm_state *stt)
 
 void		tkn_add_space(struct s_fsm_state *stt)
 {
-	struct s_token *const tk = malloc(sizeof(struct s_token)); //check error
+	struct s_token *const tk = malloc(sizeof(struct s_token));
 
+	if (!tk)
+		err_system_n_exit(3, NULL);
 	tk->type = TK_SP;
 	tk->var = NULL;
 	dlst_push_back(&stt->tk_list, dlst_elem(tk));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 19:32:06 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/27 21:51:28 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/28 01:05:42 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	run_loop(t_env_containter *env)
 			{
 				g_state = RSTT_EXECUTE_SOME_INSTRUCTIONS_WHICH_WAS_SENDED_BY_PARSER;
 				execute_instructions(instr, env);
-				// free instr
+				dlst_del(&instr, instruction_free);
 			}
 		}
 		g_sigint = false;

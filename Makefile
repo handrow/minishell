@@ -8,8 +8,8 @@ OBJ_DIR = build
 
 C_COMPILER = clang
 C_STANDART = -std=c99
-C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra
-C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra
+C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -g
+C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -g
 
 # **************************************************************************** #
 # PRINTF TARGET DESCRIPTION
@@ -45,7 +45,7 @@ TOKENIZER_SRCS = tokenizer.c tokenizer_arrs.c tokenizer_comma.c tokenizer_dquote
 TOKENIZER_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(TOKENIZER_SRCS))
 TOKENIZER_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(TOKENIZER_SRCS))
 TOKENIZER_LIBS = 
-TOKENIZER_INCS = -I tokenizer -I ft_printf -I libft
+TOKENIZER_INCS = -I tokenizer -I ft_printf -I libft -I errors
 
 # **************************************************************************** #
 # SIGNAL TARGET DESCRIPTION
@@ -65,11 +65,11 @@ SIGNAL_INCS = -I shell_signals -I readline -I ft_printf
 PARSER_NAME = parser
 PARSER_PATH = parser
 PARSER_FILE = parser/libparser.a
-PARSER_SRCS = mini_tokenizer.c mini_tokenizer_arrs.c parser.c prs_check_errors.c prs_create_instruction_list.c prs_dereference_var.c prs_join_words.c prs_make_tkn_group.c prs_setup_filenames.c
+PARSER_SRCS = mini_tokenizer.c mini_tokenizer_arrs.c parser.c prs_check_errors.c prs_create_instruction_list.c prs_dereference_var.c prs_join_words.c prs_make_tkn_group.c prs_setup_filenames.c prs_utils.c
 PARSER_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(PARSER_SRCS))
 PARSER_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(PARSER_SRCS))
 PARSER_LIBS = 
-PARSER_INCS = -I tokenizer -I ft_printf -I env_var -I parser -I libft -I .
+PARSER_INCS = -I tokenizer -I ft_printf -I errors -I env_var -I parser -I libft -I .
 
 # **************************************************************************** #
 # TEST_EXEC_1.OUT TARGET DESCRIPTION

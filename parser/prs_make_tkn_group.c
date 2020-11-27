@@ -1,41 +1,64 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_make_tkn_group.c                            :+:      :+:    :+:   */
+/*   prs_make_tkn_group.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 18:07:17 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/26 23:34:34 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/28 01:49:18 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "ft_printf.h"
+#include "err_msg.h"
 
-t_node			*prs_extract_token_group(t_node **tk_list)
+static t_node			*err_exit(t_node **root)
+{
+	err_msg("syntax error", "command is empty");
+	dlst_del(root, token_free);
+	return (NULL);
+}
+
+static bool				check_cmds(t_node *tk_list)
+{
+	bool			is_cmd;
+	struct s_token	*tk;
+
+	while (tk_list)
+	{
+		is_cmd = false;
+		while (tk_list && (tk = tk_list->content) && tk->type != TK_COMMA)
+		{
+			is_cmd |= tk->type != TK_SP;
+			tk_list = tk_list->next;
+		}
+		if (tk->type == TK_COMMA)
+			tk_list = tk_list->next;
+		if (!is_cmd)
+			break ;
+	}
+	return (is_cmd);
+}
+
+t_node					*prs_extract_token_group(t_node **tk_list)
 {
 	struct s_token	*tk;
-	t_node			*root;
+	t_node *const	root = *tk_list;
 	t_node			*tmp;
-	bool			is_cmd;
 
-	root = *tk_list;
-	is_cmd = false;
+	if (!(check_cmds(*tk_list)))
+		return (err_exit(tk_list));
 	while ((*tk_list) && (tk = (*tk_list)->content) && tk->type != TK_COMMA)
-	{
-		is_cmd |= tk->type != TK_SP;
 		*tk_list = (*tk_list)->next;
-	}
 	if ((*tk_list) && tk->type == TK_COMMA)
 	{
 		tmp = *tk_list;
-		if (!(tmp->prev) || is_cmd == false)
-			ft_printf(2, "Error\n");
 		tmp->prev->next = NULL;
 		tmp->prev = NULL;
 		*tk_list = (*tk_list)->next;
-		dlst_del_elem(&root, tmp, token_free);
+		dlst_del_elem((t_node **)&root, tmp, token_free);
 	}
 	return (root);
 }

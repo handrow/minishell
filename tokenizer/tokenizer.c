@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 11:19:36 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/26 22:19:35 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/27 23:06:38 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
-#include "ft_printf.h"
+#include "err_msg.h"
 
 void					tkn_add_none(struct s_fsm_state *stt)
 {
@@ -37,7 +37,7 @@ t_node					*check_error(struct s_fsm_state	stt)
 {
 	if (stt.c_stt == STT_DQ || stt.c_stt == STT_SQ)
 	{
-		ft_printf(2, "ERROR\n");
+		err_msg("syntax error", "unclosed quote");
 		dlst_del(&stt.tk_list, token_free);
 	}
 	return (stt.tk_list);

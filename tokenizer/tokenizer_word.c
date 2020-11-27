@@ -3,21 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_word.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 11:41:31 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/24 18:55:36 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/27 22:48:53 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+#include "err_msg.h"
 
 void		tkn_add_word(struct s_fsm_state *stt)
 {
-	struct s_token *const tk = malloc(sizeof(struct s_token)); //check error
+	struct s_token *const tk = malloc(sizeof(struct s_token));
 
+	if (!tk)
+		err_system_n_exit(3, NULL);
 	tk->type = TK_WORD;
-	tk->var = ft_substr(stt->in_str, stt->st, stt->i - stt->st); //check error
+	tk->var = ft_substr(stt->in_str, stt->st, stt->i - stt->st);
+	if (!tk->var)
+		err_system_n_exit(3, NULL);
 	dlst_push_back(&stt->tk_list, dlst_elem(tk));
 }
 

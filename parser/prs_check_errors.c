@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_err_manager.c                               :+:      :+:    :+:   */
+/*   prs_check_errors.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 15:59:21 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/26 23:08:15 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/28 01:35:52 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "ft_printf.h"
+#include "err_msg.h"
 
 static bool			check_prev(t_node *tk_list, enum e_token allow_mask)
 {
@@ -31,11 +32,23 @@ static bool			check_next(t_node *tk_list, enum e_token allow_mask)
 	return ((tk->type & allow_mask) != 0);
 }
 
-void				prs_check_errors(t_node *tk_list)
+static bool			err_exit(enum e_token tk_type, t_node *root)
+{
+	dlst_del(&root, token_free);
+	if (tk_type == TK_PIPE)
+		err_msg("syntax error", "no command near |");
+	else if (tk_type == TK_RDRS)
+		err_msg("syntax error", "no filename");
+	return (false);
+}
+
+bool				prs_check_errors(t_node *tk_list)
 {
 	struct s_token	*tk;
 	bool			check;
+	t_node			*root;
 
+	root = tk_list;
 	while (tk_list)
 	{
 		tk = tk_list->content;
@@ -44,14 +57,15 @@ void				prs_check_errors(t_node *tk_list)
 			check = check_prev(tk_list, (TK_WORD | TK_FNAME));
 			check &= check_next(tk_list, (TK_WORD | TK_RDRS));
 			if (!check)
-				ft_printf(2, "ERROR\n");
+				return (err_exit(TK_PIPE, root));
 		}
 		else if (tk->type & TK_RDRS)
 		{
 			check = check_next(tk_list, TK_FNAME);
 			if (!check)
-				ft_printf(2, "ERROR\n");
+				return (err_exit(TK_RDRS, root));
 		}
 		tk_list = tk_list->next;
 	}
+	return (true);
 }
