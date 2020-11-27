@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 03:52:30 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/21 05:45:52 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/27 22:33:55 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_string
 }				t_string;
 
 int				readline(char **line);
+void			put_prompt(void);
 char			*find_first_sym(char *s, char *symbs);
 
 #endif

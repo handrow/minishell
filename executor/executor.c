@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 07:50:13 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/25 17:02:47 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/27 19:58:37 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	execute_instructions(t_instruction_list cmd, t_env_containter *env)
 		info.exit_code = get_last_ec_n_wait(last_pid);
 	if ((tmp = ft_itoa(info.exit_code)) == NULL)
 		err_system_n_exit(EXIT_STATUS_ERROR, NULL);
-	env_set(env, "?", tmp); // check error
+	env_set(env, "?", tmp);
 	free(tmp);
 }

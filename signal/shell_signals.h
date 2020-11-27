@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_signals.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 18:17:03 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/26 18:40:09 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/27 21:41:26 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,19 @@
 
 # include <stdbool.h>
 
-extern bool	g_sigint;
-extern bool	g_sigquit;
+enum						e_run_state
+{
+	RSTT_INIT,
+	RSTT_RDL,
+	RSTT_TKN,
+	RSTT_PRS,
+	RSTT_EXECUTE_SOME_INSTRUCTIONS_WHICH_WAS_SENDED_BY_PARSER,
+};
 
-void		sig_set(void);
-void		sig_reset(void);
+extern bool					g_sigint;
+extern enum e_run_state		g_state;
+
+void						sig_set(void);
+void						sig_reset(void);
 
 #endif

@@ -44,7 +44,7 @@ READLINE = {
     "type": "lib",
     "path": "readline",
     "sources": ["*.c"],
-    "includes": ["readline", "libft"]
+    "includes": ["readline", "libft", "ft_printf"]
 }
 
 TOKENIZER = {
@@ -89,7 +89,7 @@ SIG = {
 	"type": "lib",
 	"path": "signal",
 	"sources": ["*.c"],
-	"includes": ["shell_signals"]
+	"includes": ["shell_signals", "readline", "ft_printf"]
 }
 
 # EXECUTABLES
@@ -99,8 +99,8 @@ MIS = {
     "out": ".",
     "type": "prog",
     "sources": ["main.c"],
-    "includes": ["tokenizer", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "shell_signals", "."],
-    "peerdirs": [EXECR, READLINE, BLT, PRINTF, TOKENIZER, ENV_VAR, LIBFT, SIG],
+    "includes": ["tokenizer", "parser", "errors", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "signal", "."],
+    "peerdirs": [EXECR, PARSER, ERR, READLINE, BLT, PRINTF, TOKENIZER, ENV_VAR, LIBFT, SIG],
 }
 
 TEST_EXECUTOR_1 = {
@@ -109,7 +109,7 @@ TEST_EXECUTOR_1 = {
     "type": "prog",
     "path": "tests",
     "sources": ["executor_1.c"],
-    "includes": ["errors", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "shell_signals"],
+    "includes": ["errors", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "signal"],
     "peerdirs": [EXECR, READLINE, BLT, ERR, PRINTF, TOKENIZER, ENV_VAR, LIBFT, SIG],
 }
 

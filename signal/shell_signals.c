@@ -3,34 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   shell_signals.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 18:19:51 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/26 18:39:49 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/27 21:44:35 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_signals.h"
+#include "readline.h"
+#include "ft_printf.h"
 #include <signal.h>
+#include <unistd.h>
 
-bool	g_sigint = false;
-bool	g_sigquit = false;
+enum e_run_state	g_state = false;
+bool				g_sigint = false;
 
-static void	sig_flags(int signum)
+static void			sigint_handler(int signum)
 {
-	if (signum == SIGINT)
-		g_sigint = true;
-	else if (signum == SIGQUIT)
-		g_sigquit = true;
+	(void)signum;
+	if (g_state == RSTT_RDL)
+	{
+		ft_printf(STDOUT_FILENO, "\n");
+		put_prompt();
+	}
+	g_sigint = true;
 }
 
-void		sig_set(void)
+void				sig_set(void)
 {
-	signal(SIGINT, sig_flags);
-	signal(SIGQUIT, sig_flags);
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
 
-void		sig_reset(void)
+void				sig_reset(void)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);

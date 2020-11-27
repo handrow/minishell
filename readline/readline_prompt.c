@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   blt_dummy.c                                        :+:      :+:    :+:   */
+/*   readline_prompt.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/21 04:00:04 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/27 21:37:55 by handrow          ###   ########.fr       */
+/*   Created: 2020/11/27 21:12:12 by handrow           #+#    #+#             */
+/*   Updated: 2020/11/27 21:14:00 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "ft_printf.h"
 #include <unistd.h>
 
-int	blt_dummy(char **argv, t_env_containter *env)
+void	put_prompt(void)
 {
-	(void)argv;
-	(void)env;
-	return (0);
+	write(STDOUT_FILENO, "minishell $> ", 13);
 }
