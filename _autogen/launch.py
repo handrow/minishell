@@ -103,41 +103,13 @@ MIS = {
     "peerdirs": [EXECR, PARSER, ERR, READLINE, BLT, PRINTF, TOKENIZER, ENV_VAR, LIBFT, SIG],
 }
 
-TEST_EXECUTOR_1 = {
-    "name": "test_exec_1.out",
-    "out": "tests",
-    "type": "prog",
-    "path": "tests",
-    "sources": ["executor_1.c"],
-    "includes": ["errors", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "signal"],
-    "peerdirs": [EXECR, READLINE, BLT, ERR, PRINTF, TOKENIZER, ENV_VAR, LIBFT, SIG],
-}
-
-TEST_TOKENIZER = {
-    "name": "test_token_1.out",
-    "out": "tests",
-    "type": "prog",
-    "path": "tests",
-    "sources": ["tokenizer_1.c"],
-    "includes": ["errors", "parser", "tokenizer", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "."],
-    "peerdirs": [EXECR, PARSER, READLINE, BLT, PRINTF, TOKENIZER, ENV_VAR, ERR, LIBFT, SIG]
-}
-
-# BUNDLE MAIN
-
-BUNDLE = {
-    "type": "bundle",
-    "name": "kastet66",
-    "peerdirs": [MIS, TEST_EXECUTOR_1, TEST_TOKENIZER]
-}
-
 COMPILERS = {
     "c": {
-        "flags": "-Wall -Wextra -fsanitize=address -g",
+        "flags": "-Wall -Wextra -Werror",
         "file_extension": "c",
         "std": "-std=c99",
         "binary": "clang",
     }
 }
 
-generate_makefile(BUNDLE, COMPILERS)
+generate_makefile(MIS, COMPILERS)

@@ -8,8 +8,8 @@ OBJ_DIR = build
 
 C_COMPILER = clang
 C_STANDART = -std=c99
-C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -fsanitize=address -g
-C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -fsanitize=address -g
+C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -Werror
+C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -Werror
 
 # **************************************************************************** #
 # PRINTF TARGET DESCRIPTION
@@ -70,18 +70,6 @@ PARSER_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(PARSER_SRCS))
 PARSER_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(PARSER_SRCS))
 PARSER_LIBS = 
 PARSER_INCS = -I tokenizer -I ft_printf -I errors -I env_var -I parser -I libft -I .
-
-# **************************************************************************** #
-# TEST_EXEC_1.OUT TARGET DESCRIPTION
-
-TEST_EXEC_1.OUT_NAME = test_exec_1.out
-TEST_EXEC_1.OUT_PATH = tests
-TEST_EXEC_1.OUT_FILE = tests/test_exec_1.out
-TEST_EXEC_1.OUT_SRCS = executor_1.c
-TEST_EXEC_1.OUT_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(TEST_EXEC_1.OUT_SRCS))
-TEST_EXEC_1.OUT_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(TEST_EXEC_1.OUT_SRCS))
-TEST_EXEC_1.OUT_LIBS = -l executor -L executor -l readline -L readline -l builtins -L builtins -l err-minishell -L errors -l printf -L ft_printf -l tokenizer -L tokenizer -l env-var -L env_var -l ft -L libft -l signal -L signal
-TEST_EXEC_1.OUT_INCS = -I errors -I libft -I env_var -I builtins -I readline -I executor -I ft_printf -I signal
 
 # **************************************************************************** #
 # ERR-MINISHELL TARGET DESCRIPTION
@@ -156,30 +144,18 @@ READLINE_LIBS =
 READLINE_INCS = -I readline -I libft -I ft_printf
 
 # **************************************************************************** #
-# TEST_TOKEN_1.OUT TARGET DESCRIPTION
-
-TEST_TOKEN_1.OUT_NAME = test_token_1.out
-TEST_TOKEN_1.OUT_PATH = tests
-TEST_TOKEN_1.OUT_FILE = tests/test_token_1.out
-TEST_TOKEN_1.OUT_SRCS = tokenizer_1.c
-TEST_TOKEN_1.OUT_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(TEST_TOKEN_1.OUT_SRCS))
-TEST_TOKEN_1.OUT_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(TEST_TOKEN_1.OUT_SRCS))
-TEST_TOKEN_1.OUT_LIBS = -l executor -L executor -l parser -L parser -l readline -L readline -l builtins -L builtins -l printf -L ft_printf -l tokenizer -L tokenizer -l env-var -L env_var -l err-minishell -L errors -l ft -L libft -l signal -L signal
-TEST_TOKEN_1.OUT_INCS = -I errors -I parser -I tokenizer -I libft -I env_var -I builtins -I readline -I executor -I ft_printf -I .
-
-# **************************************************************************** #
 # GENERIC RULES
 
 .PHONY: all re clean fclean
 .DEFAULT_GOAL = all
 
-all: $(PRINTF_FILE) $(BUILTINS_FILE) $(TOKENIZER_FILE) $(SIGNAL_FILE) $(PARSER_FILE) $(ERR-MINISHELL_FILE) $(ENV-VAR_FILE) $(EXECUTOR_FILE) $(FT_FILE) $(READLINE_FILE) $(TEST_EXEC_1.OUT_FILE) $(MINISHELL_FILE) $(TEST_TOKEN_1.OUT_FILE)
+all: $(PRINTF_FILE) $(BUILTINS_FILE) $(TOKENIZER_FILE) $(SIGNAL_FILE) $(PARSER_FILE) $(ERR-MINISHELL_FILE) $(ENV-VAR_FILE) $(EXECUTOR_FILE) $(FT_FILE) $(READLINE_FILE) $(MINISHELL_FILE)
 
 clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -rf $(PRINTF_FILE) $(BUILTINS_FILE) $(TOKENIZER_FILE) $(SIGNAL_FILE) $(PARSER_FILE) $(ERR-MINISHELL_FILE) $(ENV-VAR_FILE) $(EXECUTOR_FILE) $(FT_FILE) $(READLINE_FILE) $(TEST_EXEC_1.OUT_FILE) $(MINISHELL_FILE) $(TEST_TOKEN_1.OUT_FILE)
+	@rm -rf $(PRINTF_FILE) $(BUILTINS_FILE) $(TOKENIZER_FILE) $(SIGNAL_FILE) $(PARSER_FILE) $(ERR-MINISHELL_FILE) $(ENV-VAR_FILE) $(EXECUTOR_FILE) $(FT_FILE) $(READLINE_FILE) $(MINISHELL_FILE)
 
 re: fclean all
 
@@ -232,15 +208,6 @@ $(OBJ_DIR)/%.c.o: $(PARSER_PATH)/%.c
 	@mkdir -p $(OBJ_DIR)
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(PARSER_INCS) -o $@ -c $< -MMD
-
-$(TEST_EXEC_1.OUT_FILE): $(EXECUTOR_FILE) $(READLINE_FILE) $(BUILTINS_FILE) $(ERR-MINISHELL_FILE) $(PRINTF_FILE) $(TOKENIZER_FILE) $(ENV-VAR_FILE) $(FT_FILE) $(SIGNAL_FILE) $(TEST_EXEC_1.OUT_OBJS)
-	@$(C_COMPILER) $(C_LFLAGS) $(C_STANDART) -o $(TEST_EXEC_1.OUT_FILE) $(TEST_EXEC_1.OUT_OBJS)  $(TEST_EXEC_1.OUT_LIBS)
-	@printf 'Finished	\033[1;32m\033[7m$@ \033[0m\n\n'
-
-$(OBJ_DIR)/%.c.o: $(TEST_EXEC_1.OUT_PATH)/%.c
-	@mkdir -p $(OBJ_DIR)
-	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
-	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(TEST_EXEC_1.OUT_INCS) -o $@ -c $< -MMD
 
 $(ERR-MINISHELL_FILE): $(ERR-MINISHELL_OBJS)
 	@ar rc $(ERR-MINISHELL_FILE) $(ERR-MINISHELL_OBJS)
@@ -301,13 +268,4 @@ $(OBJ_DIR)/%.c.o: $(READLINE_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(READLINE_INCS) -o $@ -c $< -MMD
 
-$(TEST_TOKEN_1.OUT_FILE): $(EXECUTOR_FILE) $(PARSER_FILE) $(READLINE_FILE) $(BUILTINS_FILE) $(PRINTF_FILE) $(TOKENIZER_FILE) $(ENV-VAR_FILE) $(ERR-MINISHELL_FILE) $(FT_FILE) $(SIGNAL_FILE) $(TEST_TOKEN_1.OUT_OBJS)
-	@$(C_COMPILER) $(C_LFLAGS) $(C_STANDART) -o $(TEST_TOKEN_1.OUT_FILE) $(TEST_TOKEN_1.OUT_OBJS)  $(TEST_TOKEN_1.OUT_LIBS)
-	@printf 'Finished	\033[1;32m\033[7m$@ \033[0m\n\n'
-
-$(OBJ_DIR)/%.c.o: $(TEST_TOKEN_1.OUT_PATH)/%.c
-	@mkdir -p $(OBJ_DIR)
-	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
-	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(TEST_TOKEN_1.OUT_INCS) -o $@ -c $< -MMD
-
--include $(PRINTF_DEPS) $(BUILTINS_DEPS) $(TOKENIZER_DEPS) $(SIGNAL_DEPS) $(PARSER_DEPS) $(TEST_EXEC_1.OUT_DEPS) $(ERR-MINISHELL_DEPS) $(ENV-VAR_DEPS) $(EXECUTOR_DEPS) $(MINISHELL_DEPS) $(FT_DEPS) $(READLINE_DEPS) $(TEST_TOKEN_1.OUT_DEPS)
+-include $(PRINTF_DEPS) $(BUILTINS_DEPS) $(TOKENIZER_DEPS) $(SIGNAL_DEPS) $(PARSER_DEPS) $(ERR-MINISHELL_DEPS) $(ENV-VAR_DEPS) $(EXECUTOR_DEPS) $(MINISHELL_DEPS) $(FT_DEPS) $(READLINE_DEPS)

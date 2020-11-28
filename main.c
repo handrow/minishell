@@ -6,7 +6,7 @@
 /*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 19:32:06 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 06:04:37 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/28 09:32:11 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static char		*readline_activities(void)
 	return (line);
 }
 
-
 void			run_loop(t_env_containter *env)
 {
 	char				*cmd;
@@ -66,10 +65,10 @@ void			run_loop(t_env_containter *env)
 	}
 }
 
-int		main(int ac, char **av, const char **ev)
+int				main(int ac, char **av, const char **ev)
 {
 	t_env_containter	env;
-	
+
 	env = NULL;
 	(void)ac;
 	(void)av;
