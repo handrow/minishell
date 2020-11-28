@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:23:37 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/25 19:46:05 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/28 05:24:39 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,15 @@ char		*get_path(char *name, const char *dirs)
 	int				i;
 	char			*bin_path;
 
-	i = 0;
+	i = -1;
 	bin_path = NULL;
+	if (!ft_strncmp(name, "/", 1) ||
+		!ft_strncmp(name, "./", 2) ||
+		!ft_strncmp(name, "../", 3))
+		return (ft_strdup(name));
 	if ((path = ft_split(dirs, ':')) == NULL)
 		err_system_n_exit(2, NULL);
-	while (bin_path == NULL && path[i])
+	while (bin_path == NULL && path[++i])
 	{
 		if ((dir = opendir(path[i])))
 		{
@@ -68,7 +72,6 @@ char		*get_path(char *name, const char *dirs)
 				bin_path = compare_n_join(entry->d_name, name, path[i]);
 			closedir(dir);
 		}
-		++i;
 	}
 	splitfree(path);
 	return (bin_path);
