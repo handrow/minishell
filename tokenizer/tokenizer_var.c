@@ -6,7 +6,7 @@
 /*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:28:48 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/28 03:06:53 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/28 07:40:38 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ bool		fsm_filter_var_end(const struct s_fsm_state *stt)
 
 void		fsm_hndl_var_end(struct s_fsm_state *stt)
 {
+	if (stt->st == stt->i)
+	{
+		stt->st--;
+		stt->c_stt = STT_W;
+	}
 	g_fsm_tkn_funcs[stt->c_stt](stt);
 	stt->c_stt = stt->c_stt == STT_DVAR ? STT_DQ : STT_NONE;
 	stt->st = stt->i;
