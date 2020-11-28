@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_dereference_var.c                           :+:      :+:    :+:   */
+/*   prs_dereference_var.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 15:00:10 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/26 23:07:44 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/28 03:05:24 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "err_msg.h"
 
 static inline t_node	*dereferense_var_into_list(t_node **tk_list,
 						t_node *tmp, t_env_containter env)
@@ -28,7 +29,8 @@ static inline t_node	*dereferense_var_into_list(t_node **tk_list,
 	else if (tk->type & TK_DVAR)
 	{
 		free(tk->var);
-		tk->var = (char*)value;
+		if (!(tk->var = ft_strdup(value)))
+			err_system_n_exit(3, NULL);
 		tk->type = TK_WORD;
 	}
 	else if (tk->type & TK_VAR)
