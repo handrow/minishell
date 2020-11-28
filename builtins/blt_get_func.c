@@ -6,7 +6,7 @@
 /*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 04:04:37 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 00:23:50 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/28 01:51:29 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ t_builtin_func	blt_get_func(const char *name)
 		return (blt_env);
 	else if (ft_strcmp("export", name) == 0)
 		return (blt_export);
+	else if (ft_strcmp("unset", name) == 0)
+		return (blt_unset);
 	return (NULL);
 }
