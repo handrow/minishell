@@ -8,8 +8,8 @@ OBJ_DIR = build
 
 C_COMPILER = clang
 C_STANDART = -std=c99
-C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -g
-C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -g
+C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra
+C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra
 
 # **************************************************************************** #
 # PRINTF TARGET DESCRIPTION
@@ -29,7 +29,7 @@ PRINTF_INCS = -I libft -I ft_printf
 BUILTINS_NAME = builtins
 BUILTINS_PATH = builtins
 BUILTINS_FILE = builtins/libbuiltins.a
-BUILTINS_SRCS = blt_dummy.c blt_env.c blt_exit.c blt_export.c blt_get_func.c blt_unset.c
+BUILTINS_SRCS = blt_dummy.c blt_echo.c blt_env.c blt_exit.c blt_export.c blt_get_func.c blt_unset.c
 BUILTINS_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(BUILTINS_SRCS))
 BUILTINS_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(BUILTINS_SRCS))
 BUILTINS_LIBS = 

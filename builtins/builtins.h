@@ -6,7 +6,7 @@
 /*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 03:52:16 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 01:50:59 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/28 03:12:20 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ int				blt_exit(char **argv, t_env_containter *env);
 int				blt_env(char **argv, t_env_containter *env);
 int				blt_export(char **argv, t_env_containter *env);
 int				blt_unset(char **argv, t_env_containter *env);
+int				blt_echo(char **argv, t_env_containter *env);
 
 #endif
