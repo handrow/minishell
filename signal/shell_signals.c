@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_signals.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 18:19:51 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/27 21:44:35 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/28 05:59:01 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ static void			sigint_handler(int signum)
 
 void				sig_set(void)
 {
+	signal(SIGTSTP, SIG_IGN);
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
 
 void				sig_reset(void)
 {
+	signal(SIGTSTP, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 }

@@ -6,11 +6,12 @@
 /*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 19:32:06 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 01:05:42 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/28 06:04:37 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "err_msg.h"
 #include "env_var.h"
 #include "readline.h"
 #include "tokenizer.h"
@@ -20,7 +21,27 @@
 #include "ft_printf.h"
 #include "executor.h"
 
-void	run_loop(t_env_containter *env)
+static void		rdl_eof_exit(void)
+{
+	ft_printf(STDOUT_FILENO, "exit\n");
+	exit(0);
+}
+
+static char		*readline_activities(void)
+{
+	int			rdl_status;
+	char		*line;
+
+	put_prompt();
+	if ((rdl_status = readline(&line)) == 0)
+		rdl_eof_exit();
+	else if (rdl_status < 0)
+		err_system_n_exit(1, NULL);
+	return (line);
+}
+
+
+void			run_loop(t_env_containter *env)
 {
 	char				*cmd;
 	t_node				*tk_list;
@@ -29,16 +50,13 @@ void	run_loop(t_env_containter *env)
 	while (true)
 	{
 		g_state = RSTT_RDL;
-		put_prompt();
-		readline(&cmd);
-		g_state = RSTT_TKN;
+		cmd = readline_activities();
+		g_state = RSTT_EXECUTIN_SOME_COOL_STAFF_FOR_YA;
 		tk_list = tokenize(cmd);
 		while (tk_list)
 		{
-			g_state = RSTT_PRS;
 			if ((instr = parse_tkn_list(*env, &tk_list)))
 			{
-				g_state = RSTT_EXECUTE_SOME_INSTRUCTIONS_WHICH_WAS_SENDED_BY_PARSER;
 				execute_instructions(instr, env);
 				dlst_del(&instr, instruction_free);
 			}

@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 17:34:39 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/24 15:57:49 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/28 06:03:31 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 #include "libft.h"
 #include <unistd.h>
+#include "ft_printf.h"
 
 static t_string		*get_buff(void)
 {
-	static t_string		buff;
+	static t_string		buff = {.len = 0, .str = NULL};
 
 	if (!(buff.str))
 	{
@@ -58,7 +59,7 @@ static int			get_line(t_string *buff, t_string *new_line)
 		return (-1);
 	if (line_end)
 		ft_memcpy(buff->str, line_end + 1, buff->len - mod_len);
-	buff->len = buff->len - mod_len - 1;
+	buff->len = buff->len - mod_len - (buff->len != mod_len);
 	if (line_end)
 		return (1);
 	return (0);
@@ -73,19 +74,19 @@ static void			string_free(t_string *string)
 
 int					readline(char **line)
 {
-	t_string			new_line;
-	t_string			*buff;
-	long				line_len;
 	int					stat;
+	long				line_len;
+	t_string			new_line;
+	t_string *const		buff = get_buff();
 
-	buff = get_buff();
 	if (!buff || !(new_line.str = malloc(sizeof(char))))
 		return (-1);
 	new_line.str[0] = '\0';
 	new_line.len = 0;
 	line_len = 0;
 	stat = get_line(buff, &new_line);
-	while (stat < 1 && (line_len = read(0, buff->str, RDL_BUFFER_SIZE)) > 0)
+	while (stat < 1 && (((line_len = read(0, buff->str, RDL_BUFFER_SIZE)) > 0)
+		|| new_line.len))
 	{
 		buff->len = line_len;
 		buff->str[line_len] = '\0';
