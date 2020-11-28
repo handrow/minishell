@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forky_builtin_rdr.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 10:13:01 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/26 19:09:06 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/28 07:38:35 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	frk_child_code(struct s_forky_info *info, t_env_containter *env)
 pid_t		forky_builtin_rd(struct s_forky_info *info, t_env_containter *env)
 {
 	pid_t	cpid;
-	
+
 	info->fork_flag = true;
 	if (info->ou)
 		pipe(info->ou);

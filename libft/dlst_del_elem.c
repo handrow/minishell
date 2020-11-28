@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dlst_del_elem.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 16:07:00 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/28 06:46:52 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/28 07:45:09 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			dlst_del_elem(t_node **root, t_node *node, t_del_func deletor)
+void	dlst_del_elem(t_node **root, t_node *node, t_del_func deletor)
 {
 	t_node *tmp;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forky_binary.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 10:13:01 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/26 19:08:04 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/28 07:39:37 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	frk_child_code(struct s_forky_info *info, t_env_containter *env)
 {
 	char **const	env_arr = env_export_to_arr(env);
 	char *const		path = get_path(info->argv[0], env_get(env, "PATH"));
-	
+
 	sig_reset();
 	if (frk_manage_fd(info) < 0)
 		err_system_n_exit(EXIT_STATUS_ERROR, NULL);
@@ -28,7 +28,7 @@ static void	frk_child_code(struct s_forky_info *info, t_env_containter *env)
 		err_msg_n_exit(EXIT_STATUS_UNKWN_CMD,
 			"command not found", info->argv[0]);
 	if (!env_arr)
-		err_system_n_exit(EXIT_STATUS_ERROR, NULL);	
+		err_system_n_exit(EXIT_STATUS_ERROR, NULL);
 	execve(path, info->argv, env_arr);
 	err_system_n_exit(EXIT_STATUS_ERROR, path);
 }

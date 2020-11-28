@@ -6,12 +6,12 @@
 /*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 15:09:34 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/21 15:24:30 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/28 05:39:39 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_HIDDEN_H
-# define PRINTF_HIDDEN_H
+#ifndef FT_PRINTF_HIDDEN_H
+# define FT_PRINTF_HIDDEN_H
 
 # include "libft.h"
 # include <stddef.h>
@@ -19,11 +19,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-int		ft_putch_n(int fd, char c, int n);
-int		ft_putstr_n(int fd, const char *str, int n);
-int		ft_digit_len(unsigned long long num, int base);
-int		ft_putnbr(int fd, unsigned long long n, int base, int upper_case);
-
+int					ft_putch_n(int fd, char c, int n);
+int					ft_putstr_n(int fd, const char *str, int n);
+int					ft_digit_len(unsigned long long num, int base);
+int					ft_putnbr(int fd, unsigned long long n, int base,
+							int upper_case);
 
 typedef enum		e_format_type
 {

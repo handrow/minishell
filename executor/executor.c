@@ -6,7 +6,7 @@
 /*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 07:50:13 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/27 19:58:37 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/28 07:39:14 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	execute_instructions(t_instruction_list cmd, t_env_containter *env)
 	struct s_instruction	*instr;
 	pid_t					last_pid;
 	char					*tmp;
-	
+
 	while ((instr = cmd->content))
 	{
 		info.argv = instr->argv;

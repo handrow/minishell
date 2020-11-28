@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 17:45:49 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/25 16:46:03 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/28 07:38:42 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int		frk_do_rdr_item(struct s_rdr *rdr)
 	const int	flags = get_flags(rdr->type);
 	const int	mode = 0644;
 	const int	fd = open(rdr->filename, flags, mode);
-	
+
 	if (fd >= 0)
 	{
 		if (dup2(fd, rdr->type == RDR_IN ? STDIN_FILENO : STDOUT_FILENO) < 0)

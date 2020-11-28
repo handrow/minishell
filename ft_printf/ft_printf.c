@@ -6,11 +6,11 @@
 /*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 22:06:30 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/21 15:24:22 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/28 05:40:20 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_printf_hidden.h"
+#include "ft_printf_hidden.h"
 
 int				ft_printf(int fd, const char *str, ...)
 {
@@ -27,7 +27,8 @@ int				ft_printf(int fd, const char *str, ...)
 		if (str[i] != '%')
 			printed_symbols = (int)write(fd, &str[i++], 1);
 		else if (str[++i] != '\0')
-			printed_symbols = print_value(fd, parse_format_flags(str, &i, &args));
+			printed_symbols = print_value(fd,
+						parse_format_flags(str, &i, &args));
 		if (printed_symbols < 0)
 		{
 			print_counter = printed_symbols;

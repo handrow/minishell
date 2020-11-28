@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 06:50:06 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/25 16:59:27 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/28 07:38:52 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int		get_last_ec_n_wait(pid_t last_pid)
 			exit_code = WEXITSTATUS(stat_loc);
 		else if (WIFSIGNALED(stat_loc))
 			exit_code = EXIT_STATUS_SIG_BASE + WTERMSIG(stat_loc);
-			// We can notify about killing
 	}
 	else
 		exit_code = EXIT_STATUS_ERROR;

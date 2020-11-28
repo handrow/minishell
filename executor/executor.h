@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 05:28:32 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 00:58:28 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/28 05:33:19 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "forky.h"
 
-void				execute_instructions(t_instruction_list cmds, t_env_containter *env);
+void				execute_instructions(t_instruction_list cmds,
+										t_env_containter *env);
 void				select_forky(struct s_forky_info *info);
 void				fill_pipes(struct s_forky_info *info, t_node *cmd);
 int					get_last_ec_n_wait(pid_t last_pid);
