@@ -8,8 +8,8 @@ OBJ_DIR = build
 
 C_COMPILER = clang
 C_STANDART = -std=c99
-C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra
-C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra
+C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -fsanitize=address -g
+C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -fsanitize=address -g
 
 # **************************************************************************** #
 # PRINTF TARGET DESCRIPTION

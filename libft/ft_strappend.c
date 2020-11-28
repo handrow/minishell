@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strappend.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 22:14:31 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/26 23:29:26 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/28 06:25:12 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char		*ft_strappend(char **src, char const *apx)
 		return (NULL);
 	ft_memcpy(new_str, *src, src_len);
 	ft_memcpy(new_str + src_len, apx, apx_len);
+	new_str[src_len + apx_len] = '\0';
 	free(*src);
 	*src = new_str;
 	return (new_str);

@@ -133,7 +133,7 @@ BUNDLE = {
 
 COMPILERS = {
     "c": {
-        "flags": "-Wall -Wextra",
+        "flags": "-Wall -Wextra -fsanitize=address -g",
         "file_extension": "c",
         "std": "-std=c99",
         "binary": "clang",
