@@ -6,7 +6,7 @@
 /*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 04:04:37 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 03:13:02 by handrow          ###   ########.fr       */
+/*   Updated: 2020/11/28 08:11:44 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,9 @@ t_builtin_func	blt_get_func(const char *name)
 		return (blt_unset);
 	else if (ft_strcmp("echo", name) == 0)
 		return (blt_echo);
+	else if (ft_strcmp("cd", name) == 0)
+		return (blt_cd);
+	else if (ft_strcmp("pwd", name) == 0)
+		return (blt_pwd);
 	return (NULL);
 }
