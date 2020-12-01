@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 17:34:39 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/28 06:03:31 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/12/01 16:25:53 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
+#include "shell_signals.h"
 #include "libft.h"
 #include <unistd.h>
 #include "ft_printf.h"
@@ -51,6 +52,11 @@ static int			get_line(t_string *buff, t_string *new_line)
 	char			*line_end;
 	size_t			mod_len;
 
+	if (g_sigint)
+	{
+		ft_memset(new_line->str, '\0', new_line->len);
+		new_line->len = 0;
+	}
 	if ((line_end = ft_memchr(buff->str, '\n', buff->len)))
 		mod_len = line_end - buff->str;
 	else

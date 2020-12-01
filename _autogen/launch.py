@@ -44,7 +44,7 @@ READLINE = {
     "type": "lib",
     "path": "readline",
     "sources": ["*.c"],
-    "includes": ["readline", "libft", "ft_printf"]
+    "includes": ["readline", "libft", "signal", "ft_printf"]
 }
 
 TOKENIZER = {
@@ -100,7 +100,7 @@ MIS = {
     "type": "prog",
     "sources": ["main.c"],
     "includes": ["tokenizer", "parser", "errors", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "signal", "."],
-    "peerdirs": [EXECR, PARSER, ERR, READLINE, BLT, PRINTF, TOKENIZER, ENV_VAR, LIBFT, SIG],
+    "peerdirs": [EXECR, PARSER, READLINE, BLT, PRINTF, TOKENIZER, ENV_VAR, LIBFT, ERR, SIG],
 }
 
 COMPILERS = {

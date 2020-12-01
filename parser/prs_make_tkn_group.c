@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_make_tkn_group.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 18:07:17 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/28 01:49:18 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/11/30 01:40:01 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static bool				check_cmds(t_node *tk_list)
 		}
 		if (tk->type == TK_COMMA)
 			tk_list = tk_list->next;
+		else
+			is_cmd = true;
 		if (!is_cmd)
 			break ;
 	}

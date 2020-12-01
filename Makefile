@@ -12,16 +12,16 @@ C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -Werror
 C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -Werror
 
 # **************************************************************************** #
-# PRINTF TARGET DESCRIPTION
+# EXECUTOR TARGET DESCRIPTION
 
-PRINTF_NAME = printf
-PRINTF_PATH = ft_printf
-PRINTF_FILE = ft_printf/libprintf.a
-PRINTF_SRCS = ft_printf.c parse.c print_utils.c print_values.c
-PRINTF_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(PRINTF_SRCS))
-PRINTF_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(PRINTF_SRCS))
-PRINTF_LIBS = 
-PRINTF_INCS = -I libft -I ft_printf
+EXECUTOR_NAME = executor
+EXECUTOR_PATH = executor
+EXECUTOR_FILE = executor/libexecutor.a
+EXECUTOR_SRCS = executor.c redirection.c forky_utils.c executor_utils.c forky_binary.c forky_builtin.c forky_builtin_rdr.c
+EXECUTOR_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(EXECUTOR_SRCS))
+EXECUTOR_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(EXECUTOR_SRCS))
+EXECUTOR_LIBS = 
+EXECUTOR_INCS = -I libft -I env_var -I builtins -I ft_printf -I errors -I signal -I .
 
 # **************************************************************************** #
 # BUILTINS TARGET DESCRIPTION
@@ -29,7 +29,7 @@ PRINTF_INCS = -I libft -I ft_printf
 BUILTINS_NAME = builtins
 BUILTINS_PATH = builtins
 BUILTINS_FILE = builtins/libbuiltins.a
-BUILTINS_SRCS = blt_cd.c blt_dummy.c blt_echo.c blt_env.c blt_exit.c blt_export.c blt_get_func.c blt_pwd.c blt_unset.c
+BUILTINS_SRCS = blt_env.c blt_unset.c blt_pwd.c blt_dummy.c blt_cd.c blt_echo.c blt_get_func.c blt_exit.c blt_export.c
 BUILTINS_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(BUILTINS_SRCS))
 BUILTINS_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(BUILTINS_SRCS))
 BUILTINS_LIBS = 
@@ -41,7 +41,7 @@ BUILTINS_INCS = -I env_var -I libft -I errors -I ft_printf
 TOKENIZER_NAME = tokenizer
 TOKENIZER_PATH = tokenizer
 TOKENIZER_FILE = tokenizer/libtokenizer.a
-TOKENIZER_SRCS = tokenizer.c tokenizer_arrs.c tokenizer_comma.c tokenizer_dquote.c tokenizer_end.c tokenizer_pipe.c tokenizer_rdrs.c tokenizer_space.c tokenizer_squote.c tokenizer_utils.c tokenizer_var.c tokenizer_word.c
+TOKENIZER_SRCS = tokenizer_squote.c tokenizer.c tokenizer_dquote.c tokenizer_pipe.c tokenizer_comma.c tokenizer_var.c tokenizer_space.c tokenizer_rdrs.c tokenizer_arrs.c tokenizer_end.c tokenizer_word.c tokenizer_utils.c
 TOKENIZER_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(TOKENIZER_SRCS))
 TOKENIZER_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(TOKENIZER_SRCS))
 TOKENIZER_LIBS = 
@@ -65,7 +65,7 @@ SIGNAL_INCS = -I shell_signals -I readline -I ft_printf
 PARSER_NAME = parser
 PARSER_PATH = parser
 PARSER_FILE = parser/libparser.a
-PARSER_SRCS = mini_tokenizer.c mini_tokenizer_arrs.c parser.c prs_check_errors.c prs_create_instruction_list.c prs_dereference_var.c prs_join_words.c prs_make_tkn_group.c prs_setup_filenames.c prs_utils.c
+PARSER_SRCS = prs_create_instruction_list.c prs_utils.c parser.c mini_tokenizer.c prs_join_words.c mini_tokenizer_arrs.c prs_dereference_var.c prs_make_tkn_group.c prs_check_errors.c prs_setup_filenames.c
 PARSER_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(PARSER_SRCS))
 PARSER_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(PARSER_SRCS))
 PARSER_LIBS = 
@@ -96,16 +96,16 @@ ENV-VAR_LIBS =
 ENV-VAR_INCS = -I env_var -I libft -I errors
 
 # **************************************************************************** #
-# EXECUTOR TARGET DESCRIPTION
+# PRINTF TARGET DESCRIPTION
 
-EXECUTOR_NAME = executor
-EXECUTOR_PATH = executor
-EXECUTOR_FILE = executor/libexecutor.a
-EXECUTOR_SRCS = executor.c executor_utils.c forky_binary.c forky_builtin.c forky_builtin_rdr.c forky_utils.c redirection.c
-EXECUTOR_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(EXECUTOR_SRCS))
-EXECUTOR_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(EXECUTOR_SRCS))
-EXECUTOR_LIBS = 
-EXECUTOR_INCS = -I libft -I env_var -I builtins -I ft_printf -I errors -I signal -I .
+PRINTF_NAME = printf
+PRINTF_PATH = ft_printf
+PRINTF_FILE = ft_printf/libprintf.a
+PRINTF_SRCS = print_utils.c ft_printf.c parse.c print_values.c
+PRINTF_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(PRINTF_SRCS))
+PRINTF_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(PRINTF_SRCS))
+PRINTF_LIBS = 
+PRINTF_INCS = -I libft -I ft_printf
 
 # **************************************************************************** #
 # MINISHELL TARGET DESCRIPTION
@@ -116,7 +116,7 @@ MINISHELL_FILE = ./minishell
 MINISHELL_SRCS = main.c
 MINISHELL_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(MINISHELL_SRCS))
 MINISHELL_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(MINISHELL_SRCS))
-MINISHELL_LIBS = -l executor -L executor -l parser -L parser -l err-minishell -L errors -l readline -L readline -l builtins -L builtins -l printf -L ft_printf -l tokenizer -L tokenizer -l env-var -L env_var -l ft -L libft -l signal -L signal
+MINISHELL_LIBS = -l executor -L executor -l parser -L parser -l readline -L readline -l builtins -L builtins -l printf -L ft_printf -l tokenizer -L tokenizer -l env-var -L env_var -l ft -L libft -l err-minishell -L errors -l signal -L signal
 MINISHELL_INCS = -I tokenizer -I parser -I errors -I libft -I env_var -I builtins -I readline -I executor -I ft_printf -I signal -I .
 
 # **************************************************************************** #
@@ -125,7 +125,7 @@ MINISHELL_INCS = -I tokenizer -I parser -I errors -I libft -I env_var -I builtin
 FT_NAME = ft
 FT_PATH = libft
 FT_FILE = libft/libft.a
-FT_SRCS = dlst_del.c dlst_del_elem.c dlst_elem.c dlst_insert.c dlst_pop_back.c dlst_pop_front.c dlst_push_back.c dlst_push_front.c dlst_size.c ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_isspace.c ft_itoa.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strappend.c ft_strchr.c ft_strcmp.c ft_strdup.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c get_next_line.c
+FT_SRCS = ft_strchr.c ft_split.c ft_strtrim.c ft_bzero.c ft_strnstr.c ft_strmapi.c dlst_del_elem.c ft_isprint.c ft_atoi.c dlst_pop_front.c dlst_insert.c ft_strdup.c dlst_del.c ft_tolower.c ft_strcmp.c ft_toupper.c ft_substr.c ft_memchr.c ft_putnbr_fd.c ft_strlcpy.c ft_itoa.c ft_memset.c ft_calloc.c dlst_push_front.c get_next_line.c dlst_size.c ft_strlen.c dlst_push_back.c ft_putchar_fd.c ft_isascii.c ft_memccpy.c ft_strlcat.c ft_putendl_fd.c ft_strappend.c ft_memcmp.c ft_isdigit.c ft_strrchr.c dlst_elem.c ft_putstr_fd.c ft_isalpha.c ft_strncmp.c ft_isalnum.c ft_memcpy.c ft_memmove.c dlst_pop_back.c ft_strjoin.c ft_isspace.c
 FT_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(FT_SRCS))
 FT_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(FT_SRCS))
 FT_LIBS = 
@@ -137,11 +137,11 @@ FT_INCS = -I libft
 READLINE_NAME = readline
 READLINE_PATH = readline
 READLINE_FILE = readline/libreadline.a
-READLINE_SRCS = readline.c readline_prompt.c readline_utils.c
+READLINE_SRCS = readline.c readline_utils.c readline_prompt.c
 READLINE_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(READLINE_SRCS))
 READLINE_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(READLINE_SRCS))
 READLINE_LIBS = 
-READLINE_INCS = -I readline -I libft -I ft_printf
+READLINE_INCS = -I readline -I libft -I signal -I ft_printf
 
 # **************************************************************************** #
 # GENERIC RULES
@@ -149,25 +149,25 @@ READLINE_INCS = -I readline -I libft -I ft_printf
 .PHONY: all re clean fclean
 .DEFAULT_GOAL = all
 
-all: $(PRINTF_FILE) $(BUILTINS_FILE) $(TOKENIZER_FILE) $(SIGNAL_FILE) $(PARSER_FILE) $(ERR-MINISHELL_FILE) $(ENV-VAR_FILE) $(EXECUTOR_FILE) $(FT_FILE) $(READLINE_FILE) $(MINISHELL_FILE)
+all: $(EXECUTOR_FILE) $(BUILTINS_FILE) $(TOKENIZER_FILE) $(SIGNAL_FILE) $(PARSER_FILE) $(ERR-MINISHELL_FILE) $(ENV-VAR_FILE) $(PRINTF_FILE) $(FT_FILE) $(READLINE_FILE) $(MINISHELL_FILE)
 
 clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -rf $(PRINTF_FILE) $(BUILTINS_FILE) $(TOKENIZER_FILE) $(SIGNAL_FILE) $(PARSER_FILE) $(ERR-MINISHELL_FILE) $(ENV-VAR_FILE) $(EXECUTOR_FILE) $(FT_FILE) $(READLINE_FILE) $(MINISHELL_FILE)
+	@rm -rf $(EXECUTOR_FILE) $(BUILTINS_FILE) $(TOKENIZER_FILE) $(SIGNAL_FILE) $(PARSER_FILE) $(ERR-MINISHELL_FILE) $(ENV-VAR_FILE) $(PRINTF_FILE) $(FT_FILE) $(READLINE_FILE) $(MINISHELL_FILE)
 
 re: fclean all
 
-$(PRINTF_FILE): $(PRINTF_OBJS)
-	@ar rc $(PRINTF_FILE) $(PRINTF_OBJS)
-	@ranlib $(PRINTF_FILE)
+$(EXECUTOR_FILE): $(EXECUTOR_OBJS)
+	@ar rc $(EXECUTOR_FILE) $(EXECUTOR_OBJS)
+	@ranlib $(EXECUTOR_FILE)
 	@printf 'Finished	\033[1;36m\033[7m$@ \033[0m\n\n'
 
-$(OBJ_DIR)/%.c.o: $(PRINTF_PATH)/%.c
+$(OBJ_DIR)/%.c.o: $(EXECUTOR_PATH)/%.c
 	@mkdir -p $(OBJ_DIR)
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
-	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(PRINTF_INCS) -o $@ -c $< -MMD
+	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(EXECUTOR_INCS) -o $@ -c $< -MMD
 
 $(BUILTINS_FILE): $(BUILTINS_OBJS)
 	@ar rc $(BUILTINS_FILE) $(BUILTINS_OBJS)
@@ -229,17 +229,17 @@ $(OBJ_DIR)/%.c.o: $(ENV-VAR_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(ENV-VAR_INCS) -o $@ -c $< -MMD
 
-$(EXECUTOR_FILE): $(EXECUTOR_OBJS)
-	@ar rc $(EXECUTOR_FILE) $(EXECUTOR_OBJS)
-	@ranlib $(EXECUTOR_FILE)
+$(PRINTF_FILE): $(PRINTF_OBJS)
+	@ar rc $(PRINTF_FILE) $(PRINTF_OBJS)
+	@ranlib $(PRINTF_FILE)
 	@printf 'Finished	\033[1;36m\033[7m$@ \033[0m\n\n'
 
-$(OBJ_DIR)/%.c.o: $(EXECUTOR_PATH)/%.c
+$(OBJ_DIR)/%.c.o: $(PRINTF_PATH)/%.c
 	@mkdir -p $(OBJ_DIR)
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
-	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(EXECUTOR_INCS) -o $@ -c $< -MMD
+	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(PRINTF_INCS) -o $@ -c $< -MMD
 
-$(MINISHELL_FILE): $(EXECUTOR_FILE) $(PARSER_FILE) $(ERR-MINISHELL_FILE) $(READLINE_FILE) $(BUILTINS_FILE) $(PRINTF_FILE) $(TOKENIZER_FILE) $(ENV-VAR_FILE) $(FT_FILE) $(SIGNAL_FILE) $(MINISHELL_OBJS)
+$(MINISHELL_FILE): $(EXECUTOR_FILE) $(PARSER_FILE) $(READLINE_FILE) $(BUILTINS_FILE) $(PRINTF_FILE) $(TOKENIZER_FILE) $(ENV-VAR_FILE) $(FT_FILE) $(ERR-MINISHELL_FILE) $(SIGNAL_FILE) $(MINISHELL_OBJS)
 	@$(C_COMPILER) $(C_LFLAGS) $(C_STANDART) -o $(MINISHELL_FILE) $(MINISHELL_OBJS)  $(MINISHELL_LIBS)
 	@printf 'Finished	\033[1;32m\033[7m$@ \033[0m\n\n'
 
@@ -268,4 +268,4 @@ $(OBJ_DIR)/%.c.o: $(READLINE_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(READLINE_INCS) -o $@ -c $< -MMD
 
--include $(PRINTF_DEPS) $(BUILTINS_DEPS) $(TOKENIZER_DEPS) $(SIGNAL_DEPS) $(PARSER_DEPS) $(ERR-MINISHELL_DEPS) $(ENV-VAR_DEPS) $(EXECUTOR_DEPS) $(MINISHELL_DEPS) $(FT_DEPS) $(READLINE_DEPS)
+-include $(EXECUTOR_DEPS) $(BUILTINS_DEPS) $(TOKENIZER_DEPS) $(SIGNAL_DEPS) $(PARSER_DEPS) $(ERR-MINISHELL_DEPS) $(ENV-VAR_DEPS) $(PRINTF_DEPS) $(MINISHELL_DEPS) $(FT_DEPS) $(READLINE_DEPS)

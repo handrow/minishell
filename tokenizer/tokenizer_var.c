@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_var.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:28:48 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/28 07:40:38 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/12/01 17:16:53 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ void		fsm_hndl_var_end(struct s_fsm_state *stt)
 {
 	if (stt->st == stt->i)
 	{
-		stt->st--;
-		stt->c_stt = STT_W;
+		--stt->st;
+		tkn_add_word(stt);
 	}
-	g_fsm_tkn_funcs[stt->c_stt](stt);
+	else
+		g_fsm_tkn_funcs[stt->c_stt](stt);
 	stt->c_stt = stt->c_stt == STT_DVAR ? STT_DQ : STT_NONE;
 	stt->st = stt->i;
 }
