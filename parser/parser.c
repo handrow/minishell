@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 18:00:00 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/27 23:36:24 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/12/01 19:15:12 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,5 @@ t_node			*parse_tkn_list(t_env_containter env, t_node **tk_list)
 	prs_derefernce_vars(&tk_group_list, env);
 	tk_group_list = prs_join_words(tk_group_list);
 	prs_setup_filenames(tk_group_list);
-	if (!(prs_check_errors(tk_group_list)))
-		return (NULL);
 	return (prs_create_instruction_list(&tk_group_list));
 }

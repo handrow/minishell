@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_check_errors.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 15:59:21 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/28 01:35:52 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/12/01 19:08:33 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static bool			check_prev(t_node *tk_list, enum e_token allow_mask)
 
 	tk_list = tk_list->prev ? tk_list->prev : tk_list;
 	tk = tk_list->content;
+	if (tk->type == TK_SP && tk_list->prev)
+		tk = tk_list->prev->content;
 	return ((tk->type & allow_mask) != 0);
 }
 
@@ -29,6 +31,8 @@ static bool			check_next(t_node *tk_list, enum e_token allow_mask)
 
 	tk_list = tk_list->next ? tk_list->next : tk_list;
 	tk = tk_list->content;
+	if (tk->type == TK_SP && tk_list->next)
+		tk = tk_list->next->content;
 	return ((tk->type & allow_mask) != 0);
 }
 
@@ -61,7 +65,7 @@ bool				prs_check_errors(t_node *tk_list)
 		}
 		else if (tk->type & TK_RDRS)
 		{
-			check = check_next(tk_list, TK_FNAME);
+			check = check_next(tk_list, (TK_WORD | TK_VAR | TK_DVAR));
 			if (!check)
 				return (err_exit(TK_RDRS, root));
 		}

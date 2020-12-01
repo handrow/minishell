@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 19:32:06 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 09:32:11 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/12/01 19:16:22 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void			run_loop(t_env_containter *env)
 		tk_list = tokenize(cmd);
 		while (tk_list)
 		{
+			if (!(prs_check_errors(tk_list)))
+				break ;
 			if ((instr = parse_tkn_list(*env, &tk_list)))
 			{
 				execute_instructions(instr, env);
