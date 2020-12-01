@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blt_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:35:45 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 00:00:30 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/01 19:04:06 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	blt_env(char **argv, t_env_containter *env)
 		while (it)
 		{
 			var = it->content;
-			ft_printf(STDOUT_FILENO, "%s=%s\n", var->key, var->value);
+			if (!(var->key[0] == '?' && var->key[1] == 0))
+				ft_printf(STDOUT_FILENO, "%s=%s\n", var->key, var->value);
 			it = it->next;
 		}
 	}

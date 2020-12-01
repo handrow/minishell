@@ -6,7 +6,7 @@
 /*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 18:39:23 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/25 19:49:59 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/01 16:54:19 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,18 @@ void		*env_set(t_env_containter *env, const char *key, const char *val)
 		{
 			free(var->value);
 			if (!(var->value = ft_strdup(val)))
-				err_system_n_exit(2, NULL);
+				err_system_n_exit(1, NULL);
 			return (var->value);
 		}
 		node = node->next;
 	}
 	if (!(var = malloc(sizeof(struct s_env_var))))
-		err_system_n_exit(2, NULL);
+		err_system_n_exit(1, NULL);
 	var->key = ft_strdup(key);
 	var->value = ft_strdup(val);
 	node = dlst_elem(var);
 	if (!var->key || !var->value || !node)
-		err_system_n_exit(2, NULL);
+		err_system_n_exit(1, NULL);
 	dlst_push_front(env, node);
 	return (node);
 }

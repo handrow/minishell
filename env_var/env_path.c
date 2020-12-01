@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:23:37 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 05:24:39 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/01 19:17:08 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,33 @@ static void	splitfree(char **out)
 	free(out);
 }
 
+static int	ft_istrcmp(const char *s1, const char *s2)
+{
+	while (*s1 && ft_tolower(*s1) == ft_tolower(*s2))
+	{
+		++s1;
+		++s2;
+	}
+	return (ft_tolower(*s1) - ft_tolower(*s2));
+}
+
 static char	*compare_n_join(const char *name1, const char *name2,
 							const char *dir)
 {
 	char	*tmp;
 	char	*path;
 
-	if (ft_strcmp(name1, name2) != 0)
+	if (ft_istrcmp(name1, name2) != 0)
 		return (NULL);
 	path = NULL;
 	if ((tmp = ft_strjoin(dir, "/")))
 	{
-		if (!(path = ft_strjoin(tmp, name2)))
-			err_system_n_exit(2, NULL);
+		if (!(path = ft_strjoin(tmp, name1)))
+			err_system_n_exit(1, NULL);
 		free(tmp);
 	}
 	else
-		err_system_n_exit(2, NULL);
+		err_system_n_exit(1, NULL);
 	return (path);
 }
 
@@ -58,12 +68,13 @@ char		*get_path(char *name, const char *dirs)
 
 	i = -1;
 	bin_path = NULL;
-	if (!ft_strncmp(name, "/", 1) ||
-		!ft_strncmp(name, "./", 2) ||
+	if (!dirs)
+		return (NULL);
+	if (!ft_strncmp(name, "/", 1) || !ft_strncmp(name, "./", 2) ||
 		!ft_strncmp(name, "../", 3))
 		return (ft_strdup(name));
 	if ((path = ft_split(dirs, ':')) == NULL)
-		err_system_n_exit(2, NULL);
+		err_system_n_exit(1, NULL);
 	while (bin_path == NULL && path[++i])
 	{
 		if ((dir = opendir(path[i])))

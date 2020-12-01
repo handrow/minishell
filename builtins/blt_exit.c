@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blt_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 21:34:35 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/27 23:31:51 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/01 17:01:56 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "err_msg.h"
 #include "libft.h"
 #include "ft_printf.h"
+#include "forky.h"
 
 static bool	parse_numeric(char *str, unsigned int *num)
 {
@@ -48,8 +49,11 @@ int			blt_exit(char **argv, t_env_containter *env)
 		if (parse_numeric(argv[1], (unsigned *)&exit_status) == true)
 			exit(exit_status);
 		else
+		{
 			ft_printf(STDOUT_FILENO,
 				"minishell: exit: %s: numeric argument required\n", argv[1]);
+			return (EXIT_STATUS_BAD_EXIT);
+		}
 	}
 	else if (argv[1] == NULL)
 		exit(0);

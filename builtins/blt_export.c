@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blt_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:22:45 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 01:48:39 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/01 17:04:56 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static bool	add_var(char *str, t_env_containter *env)
 		return (false);
 	}
 	if (!(key_str = ft_substr(str, 0, val_str - str)))
-		err_system_n_exit(2, "export");
+		err_system_n_exit(1, "export");
 	env_set(env, key_str, val_str + 1);
 	free(key_str);
 	return (true);

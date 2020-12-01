@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blt_pwd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 08:13:24 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 08:45:03 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/01 17:05:21 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_pwd(void)
 	{
 		pwd_buff = malloc(pwd_buff_size);
 		if (!pwd_buff)
-			err_system_n_exit(2, NULL);
+			err_system_n_exit(1, NULL);
 		if (getcwd(pwd_buff, pwd_buff_size) == NULL)
 		{
 			free(pwd_buff);

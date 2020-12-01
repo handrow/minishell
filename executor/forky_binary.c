@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forky_binary.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 10:13:01 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 07:39:37 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/01 16:58:16 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	frk_child_code(struct s_forky_info *info, t_env_containter *env)
 	if (!env_arr)
 		err_system_n_exit(EXIT_STATUS_ERROR, NULL);
 	execve(path, info->argv, env_arr);
-	err_system_n_exit(EXIT_STATUS_ERROR, path);
+	err_system_n_exit(EXIT_STATUS_BAD_EXEC, path);
 }
 
 pid_t		forky_binary(struct s_forky_info *info, t_env_containter *env)

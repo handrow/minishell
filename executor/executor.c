@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 07:50:13 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 07:39:14 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/02 02:16:35 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 #include "libft.h"
 #include "err_msg.h"
 
-void	execute_instructions(t_instruction_list cmd, t_env_containter *env)
+int		execute_instructions(t_instruction_list cmd, t_env_containter *env)
 {
 	struct s_forky_info		info;
 	struct s_instruction	*instr;
 	pid_t					last_pid;
-	char					*tmp;
 
 	while ((instr = cmd->content))
 	{
@@ -35,8 +34,5 @@ void	execute_instructions(t_instruction_list cmd, t_env_containter *env)
 	}
 	if (info.fork_flag)
 		info.exit_code = get_last_ec_n_wait(last_pid);
-	if ((tmp = ft_itoa(info.exit_code)) == NULL)
-		err_system_n_exit(EXIT_STATUS_ERROR, NULL);
-	env_set(env, "?", tmp);
-	free(tmp);
+	return (info.exit_code);
 }

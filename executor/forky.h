@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forky.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 10:07:14 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 05:36:13 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/01 17:11:52 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include "instructions.h"
+# include "../instructions.h"
 # include "env_var.h"
 
 # define EXIT_STATUS_SIG_BASE 128
+# define EXIT_STATUS_BAD_EXIT 128
 # define EXIT_STATUS_UNKWN_CMD 127
+# define EXIT_STATUS_BAD_EXEC 126
+# define EXIT_STATUS_BLT_ERROR 2
 # define EXIT_STATUS_ERROR 1
 
 struct				s_forky_info
