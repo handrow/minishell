@@ -6,7 +6,7 @@
 /*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 15:00:10 by jiandre           #+#    #+#             */
-/*   Updated: 2020/11/28 03:05:24 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/12/02 19:31:35 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void					prs_derefernce_vars(t_node **tk_list,
 		tk = tmp->content;
 		if (tk->type & (TK_DVAR | TK_VAR))
 			tmp = dereferense_var_into_list(tk_list, tmp, env);
-		if (tmp)
+		if (tmp && (tk = tmp->content) && tk->type & ~(TK_DVAR | TK_VAR))
 			tmp = tmp->next;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
+/*   By: jiandre <jiandre@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 19:32:06 by handrow           #+#    #+#             */
-/*   Updated: 2020/12/02 06:45:17 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/02 19:45:19 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,22 @@
 #include "cmd_opts.h"
 #include "builtins.h"
 
-static void		rdl_eof_exit(void)
+static void		rdl_eof_exit(t_env_containter *env)
 {
 	ft_printf(STDOUT_FILENO, "exit\n");
-	exit(0);
+	exit(ft_atoi(env_get(env, "?")));
 }
 
-static char		*readline_activities(void)
+static char		*readline_activities(t_env_containter *env)
 {
 	int			rdl_status;
 	char		*line;
 
 	put_prompt();
 	if ((rdl_status = readline(&line)) == 0)
-		rdl_eof_exit();
+	{
+		rdl_eof_exit(env);
+	}
 	else if (rdl_status < 0)
 		err_system_n_exit(1, NULL);
 	return (line);
@@ -48,6 +50,8 @@ static int		parse_and_execute(t_node **tk_list, t_env_containter *env,
 	t_instruction_list	instr;
 	int					exit_code;
 
+	if (g_sigint == RSTT_RDL)
+		set_exit_code(1, env);
 	if (!(prs_check_errors(*tk_list)))
 	{
 		exit_code = EXIT_STATUS_SYNTAX_ERR;
@@ -72,7 +76,7 @@ static void		run_loop(t_env_containter *env)
 	while (true)
 	{
 		g_state = RSTT_RDL;
-		cmd = readline_activities();
+		cmd = readline_activities(env);
 		g_state = RSTT_EXECUTIN_SOME_COOL_STAFF_FOR_YA;
 		tk_list = tokenize(cmd);
 		if (!tk_list)
