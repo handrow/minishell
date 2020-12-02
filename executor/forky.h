@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forky.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
+/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 10:07:14 by handrow           #+#    #+#             */
-/*   Updated: 2020/12/01 17:11:52 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/02 02:50:42 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define EXIT_STATUS_UNKWN_CMD 127
 # define EXIT_STATUS_BAD_EXEC 126
 # define EXIT_STATUS_BLT_ERROR 2
+# define EXIT_STATUS_SYNTAX_ERR 2
 # define EXIT_STATUS_ERROR 1
 
 struct				s_forky_info

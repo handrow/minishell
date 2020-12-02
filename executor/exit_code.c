@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_code.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
+/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 02:16:56 by handrow           #+#    #+#             */
-/*   Updated: 2020/12/02 02:19:37 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/02 03:14:55 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	set_exit_code(int exit_code, t_env_containter *env)
 {
 	char *const		tmp = ft_itoa(exit_code);
-	
+
 	if (!tmp)
 		err_system_n_exit(1, NULL);
 	env_set(env, "?", tmp);

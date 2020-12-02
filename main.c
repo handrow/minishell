@@ -6,7 +6,7 @@
 /*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 19:32:06 by handrow           #+#    #+#             */
-/*   Updated: 2020/12/01 19:16:22 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/12/02 03:26:43 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,32 @@ static char		*readline_activities(void)
 	return (line);
 }
 
-void			run_loop(t_env_containter *env)
+static int		parse_and_execute(t_node **tk_list, t_env_containter *env,
+				bool *cont)
+{
+	t_instruction_list	instr;
+	int					exit_code;
+
+	if (!(prs_check_errors(*tk_list)))
+	{
+		exit_code = EXIT_STATUS_SYNTAX_ERR;
+		*cont = false;
+	}
+	else if ((instr = parse_tkn_list(*env, tk_list)))
+	{
+		exit_code = execute_instructions(instr, env);
+		dlst_del(&instr, instruction_free);
+	}
+	else
+		exit_code = EXIT_STATUS_SYNTAX_ERR;
+	return (exit_code);
+}
+
+static void		run_loop(t_env_containter *env)
 {
 	char				*cmd;
 	t_node				*tk_list;
-	t_instruction_list	instr;
+	bool				cont;
 
 	while (true)
 	{
@@ -52,16 +73,11 @@ void			run_loop(t_env_containter *env)
 		cmd = readline_activities();
 		g_state = RSTT_EXECUTIN_SOME_COOL_STAFF_FOR_YA;
 		tk_list = tokenize(cmd);
-		while (tk_list)
-		{
-			if (!(prs_check_errors(tk_list)))
-				break ;
-			if ((instr = parse_tkn_list(*env, &tk_list)))
-			{
-				execute_instructions(instr, env);
-				dlst_del(&instr, instruction_free);
-			}
-		}
+		if (!tk_list)
+			set_exit_code(EXIT_STATUS_SYNTAX_ERR, env);
+		cont = true;
+		while (tk_list && cont)
+			set_exit_code(parse_and_execute(&tk_list, env, &cont), env);
 		g_sigint = false;
 		free(cmd);
 	}
@@ -77,6 +93,7 @@ int				main(int ac, char **av, const char **ev)
 	g_state = RSTT_INIT;
 	sig_set();
 	env_import_from_arr(&env, ev);
+	set_exit_code(0, &env);
 	run_loop(&env);
 	env_rm_rf(&env);
 	return (0);
