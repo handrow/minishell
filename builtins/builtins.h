@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@student.42.fr>            +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 03:52:16 by handrow           #+#    #+#             */
-/*   Updated: 2020/11/28 08:30:25 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/02 04:36:54 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ int				blt_unset(char **argv, t_env_containter *env);
 int				blt_echo(char **argv, t_env_containter *env);
 int				blt_pwd(char **argv, t_env_containter *env);
 int				blt_cd(char **argv, t_env_containter *env);
+
+int				blt_elista_export(char **argv, t_env_containter *env);
 
 #endif

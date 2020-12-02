@@ -6,7 +6,7 @@
 /*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 18:39:23 by handrow           #+#    #+#             */
-/*   Updated: 2020/12/01 16:54:19 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/02 06:48:00 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void		*env_set(t_env_containter *env, const char *key, const char *val)
 	node = *env;
 	while (node)
 	{
-		var = node->content;
-		if (ft_strcmp(var->key, key) == 0)
+		if (ft_strcmp((var = node->content)->key, key) == 0)
 		{
 			free(var->value);
-			if (!(var->value = ft_strdup(val)))
+			var->value = (!val) ? NULL : ft_strdup(val);
+			if (val && !var->value)
 				err_system_n_exit(1, NULL);
 			return (var->value);
 		}
@@ -50,9 +50,9 @@ void		*env_set(t_env_containter *env, const char *key, const char *val)
 	if (!(var = malloc(sizeof(struct s_env_var))))
 		err_system_n_exit(1, NULL);
 	var->key = ft_strdup(key);
-	var->value = ft_strdup(val);
+	var->value = val ? ft_strdup(val) : NULL;
 	node = dlst_elem(var);
-	if (!var->key || !var->value || !node)
+	if (!var->key || (val && !var->value) || !node)
 		err_system_n_exit(1, NULL);
 	dlst_push_front(env, node);
 	return (node);

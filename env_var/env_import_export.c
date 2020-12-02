@@ -6,7 +6,7 @@
 /*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 16:35:49 by handrow           #+#    #+#             */
-/*   Updated: 2020/12/01 19:09:12 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/02 05:45:37 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,33 @@ struct s_env_var	*env_var_from_str(const char *str)
 		? ft_strlen(str)
 		: key_end - str;
 	val_start = (key_end == NULL)
-		? ""
+		? NULL
 		: key_end + 1;
 	if (!(var = malloc(sizeof(struct s_env_var))))
 		err_system_n_exit(1, NULL);
 	if (!(var->key = ft_substr(str, 0, key_len)))
 		err_system_n_exit(1, NULL);
-	if (!(var->value = ft_strdup(val_start)))
+	if (!val_start)
+		var->value = NULL;
+	else if (!(var->value = ft_strdup(val_start)))
 		err_system_n_exit(1, NULL);
 	return (var);
 }
 
 char				*env_var_to_str(const struct s_env_var *var)
 {
-	const size_t	len = ft_strlen(var->key) + ft_strlen(var->value) + 1;
+	const size_t	val_len = var->value ? ft_strlen(var->value) : 0;
+	const size_t	len = ft_strlen(var->key) + val_len + 1;
 	char *const		str = malloc(len + 1);
 
 	if (!str)
 		err_system_n_exit(1, NULL);
 	ft_strlcpy(str, var->key, len + 1);
-	ft_strlcat(str, "=", len + 1);
-	ft_strlcat(str, var->value, len + 1);
+	if (var->value != NULL)
+	{
+		ft_strlcat(str, "=", len + 1);
+		ft_strlcat(str, var->value, len + 1);
+	}
 	return (str);
 }
 
@@ -85,7 +91,8 @@ char				**env_export_to_arr(t_env_containter *env)
 	{
 		if (!(var_str = env_var_to_str(node->content)))
 			err_system_n_exit(1, NULL);
-		if (var_str[0] == '?' && var_str[1] == '=')
+		if (((struct s_env_var *)node->content)->value == NULL
+		|| (var_str[0] == '?' && var_str[1] == '='))
 			free(var_str);
 		else
 			arr[i++] = var_str;

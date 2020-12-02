@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:23:37 by handrow           #+#    #+#             */
-/*   Updated: 2020/12/02 03:16:02 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/12/02 06:58:03 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ char		*get_path(char *name, const char *dirs)
 
 	i = -1;
 	bin_path = NULL;
-	if (!dirs)
-		return (NULL);
 	if (!ft_strncmp(name, "/", 1) || !ft_strncmp(name, "./", 2) ||
 		!ft_strncmp(name, "../", 3))
 		return (ft_strdup(name));
+	if (!dirs)
+		return (NULL);
 	if ((path = ft_split(dirs, ':')) == NULL)
 		err_system_n_exit(1, NULL);
 	while (bin_path == NULL && path[++i])

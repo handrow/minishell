@@ -2,6 +2,15 @@ from package import generate_makefile
 
 # LIBRARIES
 
+OPTS = {
+	"name": "ms-opts",
+	"out": "cmd_opts",
+	"type": "lib",
+	"path": "cmd_opts",
+	"includes": ["errors", "libft", "ft_printf"],
+	"sources": ["*.c"]
+}
+
 LIBFT = {
 	"name": "ft",
 	"out": "libft",
@@ -26,7 +35,7 @@ BLT = {
     "type": "lib",
     "path": "builtins",
     "sources": ["*.c"],
-    "includes": ["env_var", "libft", "errors", "ft_printf", "executor"]
+    "includes": ["env_var", "libft", "errors", "ft_printf", "executor", "cmd_opts"]
 }
 
 EXECR = {
@@ -99,8 +108,8 @@ MIS = {
     "out": ".",
     "type": "prog",
     "sources": ["main.c"],
-    "includes": ["tokenizer", "parser", "errors", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "signal", "."],
-    "peerdirs": [EXECR, PARSER, READLINE, BLT, PRINTF, TOKENIZER, ENV_VAR, LIBFT, ERR, SIG],
+    "includes": ["tokenizer", "parser", "errors", "libft", "env_var", "builtins", "readline", "executor", "ft_printf", "signal", ".", "cmd_opts"],
+    "peerdirs": [EXECR, PARSER, READLINE, BLT, TOKENIZER, ENV_VAR, OPTS, PRINTF, LIBFT, ERR, SIG],
 }
 
 COMPILERS = {

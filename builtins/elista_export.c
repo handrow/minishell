@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   blt_unset.c                                        :+:      :+:    :+:   */
+/*   elista_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/28 01:50:26 by handrow           #+#    #+#             */
-/*   Updated: 2020/12/02 07:09:30 by handrow          ###   ########.fr       */
+/*   Created: 2020/11/28 00:22:45 by handrow           #+#    #+#             */
+/*   Updated: 2020/12/02 05:25:02 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env_var.h"
-#include "err_msg.h"
-#include "libft.h"
-#include <stdbool.h>
+#include "elista.h"
 
 static bool	is_var(char *str)
 {
-	while (*str)
+	while (*str != '\0' && *str != '=')
 	{
 		if (!ft_isalnum(*str) && *str != '_')
 			return (false);
@@ -26,44 +23,42 @@ static bool	is_var(char *str)
 	return (true);
 }
 
-static bool	env_exist(t_env_containter *env, const char *key)
+static bool	add_var(char *str, t_env_containter *env)
 {
-	const t_node			*node = *env;
-	const struct s_env_var	*var;
+	struct s_env_var	*var;
 
-	while (node)
-	{
-		var = node->content;
-		if (ft_strcmp(var->key, key) == 0)
-			return (true);
-		node = node->next;
-	}
-	return (false);
-}
-
-static bool	unset_var(char *str, t_env_containter *env)
-{
 	if (!is_var(str))
+	{
+		ft_printf(STDOUT_FILENO, "minishell:"
+		" export: `%s`: not a valid identifier\n", str);
 		return (false);
-	if (!env_exist(env, str))
-		return (false);
-	env_rm(env, str);
+	}
+	var = env_var_from_str(str);
+	if (!var)
+		err_system_n_exit(1, "export");
+	env_set(env, var->key, var->value);
+	free(var->key);
+	free(var->value);
+	free(var);
 	return (true);
 }
 
-int			blt_unset(char **argv, t_env_containter *env)
+int			blt_elista_export(char **argv, t_env_containter *env)
 {
-	int	i;
-	int	is_err;
+	int					i;
+	int					is_err;
 
 	i = 1;
 	is_err = 0;
 	if (argv[1] == NULL)
-		return (0);
-	while (argv[i])
+		return (elista_output(env));
+	else
 	{
-		is_err = !unset_var(argv[i], env) || is_err;
-		++i;
+		while (argv[i])
+		{
+			is_err = !add_var(argv[i], env) || is_err;
+			++i;
+		}
 	}
 	return (is_err);
 }

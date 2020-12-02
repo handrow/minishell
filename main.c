@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
+/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 19:32:06 by handrow           #+#    #+#             */
-/*   Updated: 2020/12/02 03:26:43 by jiandre          ###   ########.fr       */
+/*   Updated: 2020/12/02 06:45:17 by handrow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include "parser.h"
 #include "ft_printf.h"
 #include "executor.h"
+#include "cmd_opts.h"
+#include "builtins.h"
 
 static void		rdl_eof_exit(void)
 {
@@ -86,13 +88,21 @@ static void		run_loop(t_env_containter *env)
 int				main(int ac, char **av, const char **ev)
 {
 	t_env_containter	env;
+	char				*pwd;
 
 	env = NULL;
 	(void)ac;
-	(void)av;
 	g_state = RSTT_INIT;
 	sig_set();
+	opts_parse(av);
+	put_greetings();
 	env_import_from_arr(&env, ev);
+	if (*opts_opt(CMD_NOT_ELISTA_EDITION_FL) != true)
+		env_set(&env, "OLDPWD", NULL);
+	pwd = get_pwd();
+	env_set(&env, "PWD", pwd);
+	env_set(&env, "SHELL", "minishell");
+	free(pwd);
 	set_exit_code(0, &env);
 	run_loop(&env);
 	env_rm_rf(&env);
