@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blt_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: handrow <handrow@42.fr>                    +#+  +:+       +#+        */
+/*   By: jiandre <kostbg1@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 21:34:35 by handrow           #+#    #+#             */
-/*   Updated: 2020/12/01 17:01:56 by handrow          ###   ########.fr       */
+/*   Updated: 2020/12/02 03:34:44 by jiandre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int			blt_exit(char **argv, t_env_containter *env)
 		{
 			ft_printf(STDOUT_FILENO,
 				"minishell: exit: %s: numeric argument required\n", argv[1]);
-			return (EXIT_STATUS_BAD_EXIT);
+			exit(EXIT_STATUS_BAD_EXIT);
 		}
 	}
 	else if (argv[1] == NULL)
